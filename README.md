@@ -18,3 +18,10 @@ Install the project and the dependencies:
 git clone https://github.com/CelineFoucart/SnowTricks.git
 composer install
 ```
+
+Install the starting data:
+
+```sh
+php bin/console d:m:m
+php bin/console doctrine:fixtures:load
+```

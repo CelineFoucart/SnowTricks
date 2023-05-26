@@ -34,8 +34,8 @@ class Trick
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     private ?User $author = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $featuredImage = null;
+    #[ORM\Column(length: 255)]
+    private ?string $featuredImage = null;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true)]
     private Collection $images;
@@ -130,12 +130,12 @@ class Trick
         return $this;
     }
 
-    public function getFeaturedImage(): ?Image
+    public function getFeaturedImage(): ?string
     {
         return $this->featuredImage;
     }
 
-    public function setFeaturedImage(?Image $featuredImage): self
+    public function setFeaturedImage(?string $featuredImage): self
     {
         $this->featuredImage = $featuredImage;
 
