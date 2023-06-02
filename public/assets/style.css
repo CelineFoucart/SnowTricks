@@ -21,6 +21,34 @@
 		url("./2e16d0bac75.jpg") center center / cover no-repeat;
 }
 
+.header-show {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.tools-header {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.title-trick, 
+.tools-header {
+    background: rgba(255, 255, 255, 0.70);
+}
+
+.tags {
+    width: 200px;
+    display: inline-block;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
     .sm-only {
