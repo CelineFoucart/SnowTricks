@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container">
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <i class="fas fa-snowboarding fa-fw"></i> <div class="sm-only">{{ app_name }}</div>
+        </a>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('app_home') }}"> 
+                    <i class="fas fa-home fa-fw"></i>
+                    <span class="md-only">Accueil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_home') }}#tricks"> 
+                    <i class="fas fa-bookmark fa-fw"></i>
+                    <span class="md-only">Tricks</span>
+                </a>
+            </li>
+            {% if is_granted('ROLE_ADMIN')  %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cogs fa-fw"></i> <span class="md-only">Administration</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_granted('IS_FULLY_AUTHENTICATED') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user-alt fa-fw"></i> <span class="md-only">Mon compte</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> <span class="md-only">Déconnexion</span></a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> <i class="fas fa-sign-in-alt fa-fw"></i> <span class="md-only">Connexion</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-edit"></i> <span class="md-only">Inscription</span></a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

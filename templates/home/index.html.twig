@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil {% endblock %}
+
+{% block body %}
+    <header class="header-index">
+        <h1 class="display-4 text-center">{{ app_description }}</h1>
+    </header>
+
+    <article class="container my-5" id="tricks">
+        <div class="row">
+            {% for trick in tricks %}
+                <div class="col-md-4 col-lg-3 my-3">
+                    <div class="card">
+                        <img src="{{ trick_image(trick.featuredImage) }}" class="card-img-top" alt="image illustrant un trick {{ trick.name }}">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h5 class="card-title h5 mb-0">
+                                        <a href="">{{ trick.name }}</a>
+                                    </h5>
+                                </div>
+                                <div class="col-3 d-flex justify-content-between">
+                                    {% if is_granted('ROLE_USER') %}
+                                        <a href="" class="text-decoration-none text-success mb-0 h5">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a href="" class="text-decoration-none text-danger mb-0 h5">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if currentRecords < total %}
+            <footer class="text-center">
+                <a href="" class="btn btn-primary"><i class="fas fa-spinner fa-fw"></i> Charger plus</a>
+            </footer>
+        {% endif %}
+    </article>
+{% endblock %}
