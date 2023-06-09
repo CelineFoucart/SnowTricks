@@ -44,7 +44,7 @@ class Trick
     #[ORM\Column(length: 255)]
     private ?string $featuredImage = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade:["persist"])]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true)]
@@ -177,6 +177,8 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($image->getTrick() === $this) {
                 $image->setTrick(null);
+
+                // https://www.doctrine-project.org/projects/doctrine-orm/en/2.15/reference/events.html
             }
         }
 

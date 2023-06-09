@@ -3,8 +3,17 @@
 {% block title %}Trick{% endblock %}
 
 {% block body %}
+    {% if trick.featuredImage %}
+        {% set background = trick_image(trick.featuredImage) %}
+    {% elseif trick.images|length > 0 %}
+        {% set background = trick_image(trick.images[0].filename) %}
+    {% else %}
+        {% set background = asset('assets/2e16d0bac756.jpg') %}
+    {% endif %}
+    
+
     <article class="container">
-        <header class="header-show" style="background-image: url('{{ trick_image(trick.featuredImage) }}')">
+        <header class="header-show" style="background-image: url('{{ background }}')">
             {% if is_granted('ROLE_USER') %}
                 <aside class="tools-header py-1 px-2">
                     <a href="{{ path('app_trick_edit', {'id': trick.id}) }}" class="text-decoration-none text-success mb-0 h5 me-2">
@@ -16,10 +25,17 @@
             {% endif %}
             <h1 class="title-trick px-5">{{ trick.name }}</h1>
         </header>
+        
+        {% set total = trick.images|length + trick.videos|length %}
+        <div class="mt-4 gallery {{ total > 5 ? 'public-container' : '' }}">
+            {% for image in trick.images %}
+                <a href="{{ trick_image(image.filename) }}" class="text-decoration-none">
+                    <img src="{{ trick_image(image.filename) }}" alt="{{ image.legend }}" class="img-thumbnail">
+                </a>
+            {% endfor %}
+        </div>
 
-        {# images et video ici #}
-
-        <div class="mt-5 lh-lg">{{ trick.description|nl2br }}</div>
+        <div class="mt-4 lh-lg">{{ trick.description|nl2br }}</div>
 
         <div class="mt-4 pb-4 text-center border-bottom">
             <span class="tags bg-light border rounded-3 p-1 me-2" title="Créé le">

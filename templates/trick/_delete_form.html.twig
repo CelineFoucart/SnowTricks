@@ -1,6 +1,12 @@
-<a href="#" class="text-danger mb-0 h5" data-bs-toggle="modal" data-bs-target="#deleteModal{{ trick.id }}">
-	<i class="fas fa-trash-alt"></i>
-</a>
+{% if add_button_modal is not defined %}
+	{% set add_button_modal = true %}
+{% endif %}
+
+{% if add_button_modal %}
+	<a href="#" class="text-danger mb-0 h5" data-bs-toggle="modal" data-bs-target="#deleteModal{{ trick.id }}">
+		<i class="fas fa-trash-alt"></i>
+	</a>
+{% endif %}
 
 <div class="modal fade" id="deleteModal{{ trick.id }}" tabindex="-1" aria-labelledby="deleteModal{{ trick.id }}Label" aria-hidden="true">
 	<div class="modal-dialog">

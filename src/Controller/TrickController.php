@@ -2,25 +2,36 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
-use App\Entity\Trick;
-use App\Entity\User;
-use App\Form\CommentType;
-use App\Form\TrickType;
-use App\Repository\CommentRepository;
-use App\Repository\TrickRepository;
 use DateTime;
+use App\Entity\User;
+use App\Entity\Trick;
 use DateTimeImmutable;
+use App\Entity\Comment;
+use App\Form\TrickType;
+use App\Form\CommentType;
+use App\Service\ImageUploader;
+use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/trick')]
 class TrickController extends AbstractController
 {
-    #[Route('/{slug}', name: 'app_trick_show', methods: ['GET'])]
+
+    public function __construct(
+        private SluggerInterface $slugger,
+        private ImageUploader $imageUploader
+    ) {
+    }
+
+    #[Route('/show/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
     public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
     {
         $currentUser = $this->getUser();
@@ -52,6 +63,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
 
             return $this->redirectToRoute('app_trick_show', [ 'slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
@@ -63,7 +75,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_trick_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER')")]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -71,6 +83,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
 
             return $this->redirectToRoute('app_trick_show', [ 'slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
@@ -91,5 +104,54 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+    }
+
+    private function setTrickAfterSubmit(Trick $trick, FormInterface $form): Trick
+    {
+        $featuredImageFile = $form->get('featuredImageFile')->getData();
+        $deleteFeaturedImage = (bool) $form->get('deleteFeaturedImage')->getData();
+
+        if ($featuredImageFile && !$deleteFeaturedImage) {
+            $newFileName = $this->imageUploader->move($featuredImageFile);
+
+            if ($trick->getFeaturedImage() !== null) {
+                $this->imageUploader->remove($trick->getFeaturedImage());
+            }
+
+            $trick->setFeaturedImage($newFileName);
+        }
+        
+        if ($deleteFeaturedImage) {
+            $status = $this->imageUploader->remove($trick->getFeaturedImage());
+
+            if ($status) {
+                $trick->setFeaturedImage(null);
+            }
+        }
+
+        $images = $form->get('images')->getData();
+        foreach ($images as $image) {
+            if ($image->getId() === null) {
+                $filename = $this->imageUploader->move($image->getUploadedFile());
+                $image->setFilename($filename)->setCreatedAt(new DateTimeImmutable())->setTrick($trick);
+            } elseif ($image->getUploadedFile() !== null) {
+                $this->imageUploader->remove($image->getFilename());
+                $filename = $this->imageUploader->move($image->getUploadedFile());
+                $image->setFilename($filename);
+            }
+        }
+
+        $slug = $this->slugger->slug(strtolower($trick->getName()));
+        $trick ->setSlug($slug)->setUpdatedAt(new DateTime());
+
+        if (null === $trick->getAuthor()) {
+            $trick->setAuthor($this->getUser());
+        }
+
+        if (null === $trick->getCreatedAt()) {
+            $trick->setCreatedAt(new DateTimeImmutable());
+        }
+
+        return $trick;
     }
 }

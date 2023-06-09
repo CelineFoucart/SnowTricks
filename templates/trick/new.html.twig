@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Trick{% endblock %}
+{% block title %}Nouveau trick{% endblock %}
 
 {% block body %}
-    <h1>Create new Trick</h1>
-
-    {{ include('trick/_form.html.twig') }}
-
-    <a href="{{ path('app_trick_index') }}">back to list</a>
+    <article>
+        {{ include('trick/_form.html.twig', {add_mode: true}) }}
+    </article>
 {% endblock %}

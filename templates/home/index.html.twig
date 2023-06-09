@@ -3,16 +3,31 @@
 {% block title %}Accueil {% endblock %}
 
 {% block body %}
-    <header class="header-index">
+    <header class="header-index position-relative">
         <h1 class="display-4 text-center">{{ app_description }}</h1>
+        <a href="#tricks" class="position-absolute bottom-0 end-0 text-reset text-decoration-none fs-1 p-2">
+            <i class="fas fa-arrow-down"></i>
+        </a>
     </header>
 
     <article class="container my-5" id="tricks">
+        {% if is_granted('ROLE_USER') %}
+            <div class="text-end">
+                <a href="{{ path('app_trick_new') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Ajouter</a>
+            </div>
+        {% endif %}
         <div class="row">
             {% for trick in tricks %}
                 <div class="col-md-4 col-lg-3 my-3">
+                    {% if trick.featuredImage %}
+                        {% set background = trick_image(trick.featuredImage) %}
+                    {% elseif trick.images|length > 0 %}
+                        {% set background = trick_image(trick.images[0].filename) %}
+                    {% else %}
+                        {% set background = asset('assets/2e16d0bac756.jpg') %}
+                    {% endif %}
                     <div class="card">
-                        <img src="{{ trick_image(trick.featuredImage) }}" class="card-img-top" alt="image illustrant un trick {{ trick.name }}">
+                        <img src="{{ background }}" class="miniature card-img-top" alt="image illustrant un trick {{ trick.name }}">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-9">

@@ -18,8 +18,9 @@
     justify-content: center;
     height: 600px;
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
-		url("./2e16d0bac75.jpg") center center / cover no-repeat;
+		url("./desktop.png") center center / cover no-repeat;
 }
+
 
 .header-show {
     height: 600px;
@@ -49,6 +50,58 @@
     display: inline-block;
 }
 
+.edit-gallery-container,
+.public-gallery {
+    display: flex;
+    overflow-x: scroll;
+    gap: 22px;
+    padding-top: 5px;
+}
+
+.edit-gallery-container::-webkit-scrollbar,
+.public-gallery::-webkit-scrollbar {
+    width: 1em;
+} 
+.edit-gallery-container::-webkit-scrollbar-track,
+.public-gallery::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.edit-gallery-container::-webkit-scrollbar-thumb,
+.public-gallery::-webkit-scrollbar-thumb {
+    background-color: #666;
+    outline: 1px solid #eee;
+}
+
+.edit-gallery-container > * {
+    flex-basis: 358px;
+    flex-shrink: 0;
+}
+
+.gallery > * {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.gallery > * + *:last-of-type {
+    margin: 0;
+}
+
+.public-gallery > * {
+    flex-basis: 250px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.gallery .img-thumbnail {
+    max-width: 250px;
+}
+
+.miniature {
+    height:152px; width: 304px; object-fit: cover;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
     .sm-only {
@@ -58,6 +111,12 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 992px) { 
+    .header-index {
+        height: 900px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
+            url("./2e16d0bac75.jpg") center center / cover no-repeat;
+    }
+
     .md-only{
         display: inline;
     }
