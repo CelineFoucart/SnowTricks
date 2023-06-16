@@ -27,11 +27,16 @@
         </header>
         
         {% set total = trick.images|length + trick.videos|length %}
-        <div class="mt-4 gallery {{ total > 5 ? 'public-container' : '' }}">
+        <div class="mt-4 gallery {{ total > 5 ? 'public-gallery' : '' }}">
             {% for image in trick.images %}
                 <a href="{{ trick_image(image.filename) }}" class="text-decoration-none">
                     <img src="{{ trick_image(image.filename) }}" alt="{{ image.legend }}" class="img-thumbnail">
                 </a>
+            {% endfor %}
+            {% for video in trick.videos %}
+                <div class="img-thumbnail">
+                    {{ video_iframe(video.url) }}
+                </div>
             {% endfor %}
         </div>
 

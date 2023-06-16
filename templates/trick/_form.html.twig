@@ -58,43 +58,12 @@
 </div>
 
 <div class="container-fluid">
-    <div class="my-3">
-        <a href="#" id="add-image" class="btn btn-sm btn-success">
-            <span class="fa fa-plus-circle"></span>
-            Ajouter une image
-        </a>
-        {% set prototype = form_widget(form.images.vars.prototype)|raw %}
-        <div id="trick_images" data-index="{{ form.images|length }}" data-prototype="{{ prototype }}" class="edit-gallery-container">
-            {% for key, image in form.images %}
-                <div class="my-2 p-2 bg-light border rounded-3" id="trickImageField{{ key }}">
-                    <img src="{{ trick_image(image.vars.value.filename) }}" alt="{{ image.vars.value.legend }}" class="img-fluid">
-                    <div class="text-end mt-1">
-                        <a href="#" 
-                            class="text-decoration-none text-success mb-0 h5 me-2" 
-                            data-bs-toggle="modal" data-bs-target="#editImageModal{{ key }}">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="#" class="text-danger mb-0 h5 remove-btn" data-target="#trickImageField{{ key }}">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
-                    <div class="modal fade" id="editImageModal{{ key }}" tabindex="-1" aria-labelledby="editImageModal{{ key }}Label" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editImageModal{{ key }}Label">Gérer l'image à la une</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body fw-bold">
-                                    {{ form_widget(image) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {{ include(
+        "trick/_form_media.html.twig", {collection: form.images, id_prefix: 'editImage', type: 'images', btn_label: 'Ajouter une image'}) 
+    }}
+    {{ include(
+        "trick/_form_media.html.twig", {collection: form.videos, id_prefix: 'editVideo', type: 'videos', btn_label: 'Ajouter une video'}) 
+    }}
 </div>
 
 <div class="container">

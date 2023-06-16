@@ -6,6 +6,7 @@ use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Video
 {
     #[ORM\Id]
@@ -50,6 +51,12 @@ class Video
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getTrick(): ?Trick

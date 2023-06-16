@@ -140,6 +140,11 @@ class TrickController extends AbstractController
             }
         }
 
+        $videos = $form->get('videos')->getData();
+        foreach ($videos as $video) {
+            $video->setTrick($trick);
+        }
+
         $slug = $this->slugger->slug(strtolower($trick->getName()));
         $trick ->setSlug($slug)->setUpdatedAt(new DateTime());
 

@@ -12,11 +12,8 @@ function defineTitle(inputTitle) {
     }
 }
 
-const btnImage = document.querySelector('#add-image');
-if (btnImage) {
-    btnImage.addEventListener('click', (e) => {
-        e.preventDefault();
-        const blockImage = document.querySelector('#trick_images');
+function addMediaInput(containerSelector) {
+    const blockImage = document.querySelector(containerSelector);
 
         if (!blockImage) {
             return;
@@ -32,11 +29,26 @@ if (btnImage) {
         const parser = new DOMParser();
         prototype = prototype.replace(/__name__/g, index);
         const parsed = parser.parseFromString(prototype, 'text/html');
-        const field = parsed.querySelector('#trick_images_'+index);
+        const field = parsed.querySelector(containerSelector+'_'+index);
         field.classList = 'my-2 p-2 bg-light border rounded-3';
         index++;
         blockImage.setAttribute('data-index', index);
         blockImage.appendChild(field);
+}
+
+const btnImage = document.querySelector('#add-images');
+if (btnImage) {
+    btnImage.addEventListener('click', (e) => {
+        e.preventDefault();
+        addMediaInput('#trick_images');
+    })
+}
+
+const btnVideo = document.querySelector('#add-videos');
+if (btnVideo) {
+    btnVideo.addEventListener('click', (e) => {
+        e.preventDefault();
+        addMediaInput('#trick_videos');
     })
 }
 
