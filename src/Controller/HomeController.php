@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository, string $perPage): Response
     {
         $tricks = $trickRepository->findPaginated();
 
@@ -18,6 +18,7 @@ class HomeController extends AbstractController
             'tricks' => $tricks,
             'total' => $trickRepository->count([]),
             'currentRecords' => count($tricks),
+            'offset' => $perPage,
         ]);
     }
 }

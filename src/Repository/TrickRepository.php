@@ -16,11 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrickRepository extends ServiceEntityRepository
 {
-    public const PER_PAGE = 16;
+    private int $perPage = 12;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, string $perPage)
     {
         parent::__construct($registry, Trick::class);
+        $this->perPage = $perPage;
     }
 
     public function save(Trick $entity, bool $flush = false): void
@@ -47,8 +48,9 @@ class TrickRepository extends ServiceEntityRepository
     public function findPaginated(int $offset = 0, ?int $limit = null): array
     {
         if (null === $limit) {
-            $limit = self::PER_PAGE;
+            $limit = $this->perPage;
         }
+        
         return $this->createQueryBuilder('t')
             ->orderBy('t.name', 'ASC')
             ->setFirstResult($offset)

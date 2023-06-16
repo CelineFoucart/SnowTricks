@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     app.image_directory: '%kernel.project_dir%/public/%env(IMAGE_DIR_NAME)%'
     app.avatar_directory: '%kernel.project_dir%/public/%env(AVATAR_DIR_NAME)%'
+    app.per_page: '%env(PER_PAGE)%'
 
 services:
     # default configuration for services in *this* file
@@ -17,6 +18,7 @@ services:
             $avatarDirectory: '%app.avatar_directory%'
             $imageDirectory: '%app.image_directory%'
             $projectDir: '%kernel.project_dir%'
+            $perPage: '%app.per_page%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
