@@ -3,20 +3,21 @@ function loadMore(type, offset, loadBtn) {
     if (type === 'trick') {
         route = '/api/trick/' + offset;
     } else {
-        route = '';
+        route = '/api/comment/' + loadBtn.dataset.trick + '/'  + offset;
     }
 
     const request = new Request(route);
     fetch(request)
         .then(function (response) {
             if (!response.ok) {
-                throw new Error(`erreur HTTP! statut: ${response.status}`);
+                alert("Le chargement a échoué !");
             }
+
             return response.json();
         })
         .then(function (data) {
             const parser = new DOMParser();
-            const html = parser.parseFromString(data.tricks, "text/html");
+            const html = parser.parseFromString(data.html, "text/html");
             const container = document.querySelector('#load-container');
             container.innerHTML = container.innerHTML + html.body.innerHTML;
 

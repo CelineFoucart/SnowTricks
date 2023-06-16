@@ -31,7 +31,7 @@ class TrickController extends AbstractController
     }
 
     #[Route('/show/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
-    public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
+    public function show(Trick $trick, Request $request, CommentRepository $commentRepository, string $perPage): Response
     {
         $currentUser = $this->getUser();
         $comment = (new Comment())->setTrick($trick)->setAuthor($currentUser);
@@ -46,10 +46,17 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
+        $comments = $commentRepository->findPaginated($trick, 0, (int) $perPage);
+        $total = $commentRepository->countCommentByTrick($trick);
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'form' => $form->createView(),
-            'comments' => $commentRepository->findPaginated($trick),
+            'comments' => $comments,
+            'perPage' => $perPage,
+            'total' => $total,
+            'currentRecords' => count($comments),
+            'offset' => $perPage,
         ]);
     }
 

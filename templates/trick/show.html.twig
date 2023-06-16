@@ -26,8 +26,8 @@
             <h1 class="title-trick px-5">{{ trick.name }}</h1>
         </header>
         
-        {% set total = trick.images|length + trick.videos|length %}
-        <div class="mt-4 gallery {{ total > 5 ? 'public-gallery' : '' }}">
+        {% set totalImages = trick.images|length + trick.videos|length %}
+        <div class="mt-4 gallery {{ totalImages > 5 ? 'public-gallery' : '' }}">
             {% for image in trick.images %}
                 <a href="{{ trick_image(image.filename) }}" class="text-decoration-none">
                     <img src="{{ trick_image(image.filename) }}" alt="{{ image.legend }}" class="img-thumbnail">
@@ -77,29 +77,20 @@
 
         <div class="mt-2">
             <h2 clas="h4">Derniers commentaires</h2>
-            <div class="row">
-                {% for comment in comments %}
-                    <div class="col-md-9 mx-auto d-flex align-items-center border-bottom">
-                        <section class="p-3">
-                            <header class="d-flex align-items-center mb-1">
-                                {% if comment.author.avatar %}
-                                    <img src="{{ avatar_image(comment.author.avatar) }}" class="rounded-circle avatar" alt="avatar de l'utilisateur">
-                                {% else %}
-                                    <span class="no-avatar pe-2"><i class="fas fa-user-circle"></i></span>
-                                {% endif %}
-                                <div>
-                                    <h3 class="h5 mb-2 me-1">{{ comment.author.username }}</h3>
-                                    <p class="small mb-0">publié le {{ comment.createdAt|date("m/d/Y H:i") }}</p>
-                                </div>
-                            </header>
-
-                            {{ comment.content|nl2br }}
-                        </section>
-                    </div>
-                {% else %}
-                    <p class="text-center">Aucun commentaire</p>
-                {% endfor %}
+            <div class="row" id="load-container">
+                {% include "trick/_comment_list.html.twig" %}
             </div>
+            {% if currentRecords < total %}
+                <footer class="text-center mt-2">
+                    <a href="#" data-type="comment" data-trick="{{ trick.id }}" data-offset="{{ offset }}" id="load-more" class="btn btn-primary">
+                        <i class="fas fa-chevron-circle-down"></i> Charger plus
+                    </a>
+                </footer>
+            {% endif %}
         </div>
     </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/load-more.js') }}"></script>
 {% endblock %}

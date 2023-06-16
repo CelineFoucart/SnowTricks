@@ -60,4 +60,17 @@ class CommentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function countCommentByTrick(Trick $trick): int
+    {
+        $results = $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->andWhere('c.trick = :trick')
+            ->setParameter('trick', $trick)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        return $results;
+    }
 }
