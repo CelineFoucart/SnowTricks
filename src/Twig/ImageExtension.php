@@ -16,6 +16,7 @@ class ImageExtension extends AbstractExtension
     {
         return [
             new TwigFunction('trick_image', [$this, 'getImageTrickPath']),
+            new TwigFunction('avatar_image', [$this, 'getImageAvatarPath']),
         ];
     }
 
@@ -27,5 +28,15 @@ class ImageExtension extends AbstractExtension
     public function getImageTrickPath(string $imageName): string
     {
         return '/' . $this->imageDirectory . '/' . $imageName;
+    }
+
+    /**
+     * Get the path of a trick image.
+     *
+     * @return string the path generated
+     */
+    public function getImageAvatarPath(string $imageName): string
+    {
+        return '/' . $this->avatarDirectory . '/' . $imageName;
     }
 }

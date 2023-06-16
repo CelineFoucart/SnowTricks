@@ -1,5 +1,18 @@
-const btnImage = document.querySelector('#add-image');
+function defineTitle(inputTitle) {
+    const titleBlock = document.querySelector('#trick-title');
 
+    if (!titleBlock) {
+        return;
+    }
+
+    if (inputTitle.value.length >= 1) {
+        titleBlock.innerHTML = inputTitle.value;
+    } else {
+        titleBlock.innerHTML = "Aucun nom défini";
+    }
+}
+
+const btnImage = document.querySelector('#add-image');
 if (btnImage) {
     btnImage.addEventListener('click', (e) => {
         e.preventDefault();
@@ -29,19 +42,11 @@ if (btnImage) {
 
 const inputTitle = document.querySelector('#trick_name');
 if (inputTitle) {
-    inputTitle.addEventListener('keyup', (e) => {
-        const titleBlock = document.querySelector('#trick-title');
+    inputTitle.addEventListener('keyup', () => {
+        defineTitle(inputTitle);
+    });
 
-        if (!titleBlock) {
-            return;
-        }
-
-        if (inputTitle.value.length >= 1) {
-            titleBlock.innerHTML = inputTitle.value;
-        } else {
-            titleBlock.innerHTML = "Aucun nom défini";
-        }
-    })
+    defineTitle(inputTitle);
 }
 
 const element = document.querySelector('#trick_categories');

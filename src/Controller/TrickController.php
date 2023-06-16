@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[Route('/trick')]
 class TrickController extends AbstractController
 {
-
     public function __construct(
         private SluggerInterface $slugger,
         private ImageUploader $imageUploader

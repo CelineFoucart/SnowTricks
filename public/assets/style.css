@@ -3,6 +3,15 @@
     display: none;
 }
 
+.avatar {
+    height: 55px;
+    width: 55px;
+}
+
+.no-avatar {
+    font-size: 55px;
+}
+
 .navbar-nav {
     flex-direction: row;
     align-items: center;
@@ -18,7 +27,7 @@
     justify-content: center;
     height: 600px;
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
-		url("./desktop.png") center center / cover no-repeat;
+		url(2e16d0bac756.jpg) center center / cover no-repeat;
 }
 
 
@@ -114,7 +123,7 @@
     .header-index {
         height: 900px;
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
-            url("./2e16d0bac75.jpg") center center / cover no-repeat;
+            url(desktop.png) center center / cover no-repeat;
     }
 
     .md-only{
