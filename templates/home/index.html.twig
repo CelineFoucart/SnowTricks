@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil {% endblock %}
+
+{% block body %}
+    <header class="header-index position-relative">
+        <h1 class="display-4 text-center">{{ app_description }}</h1>
+        <a href="#tricks" class="position-absolute bottom-0 end-0 text-reset text-decoration-none fs-1 p-2">
+            <i class="fas fa-arrow-down"></i>
+        </a>
+    </header>
+
+    <article class="container my-5" id="tricks">
+        {% if is_granted('ROLE_USER') %}
+            <div class="text-end">
+                <a href="{{ path('app_trick_new') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Ajouter</a>
+            </div>
+        {% endif %}
+        <div class="row" id="load-container">
+            {% include "trick/_trick_list.html.twig" %}
+        </div>
+
+        {% if currentRecords < total %}
+            <footer class="text-center">
+                <a href="#" data-type="trick" data-offset="{{ offset }}" id="load-more" class="btn btn-primary">
+                    <i class="fas fa-chevron-circle-down"></i> Charger plus
+                </a>
+            </footer>
+        {% endif %}
+    </article>
+
+    <div class="text-end me-3">
+        <a href="#" class="text-reset text-decoration-none fs-1"><i class="fas fa-arrow-up"></i></a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/load-more.js') }}"></script>
+{% endblock %}

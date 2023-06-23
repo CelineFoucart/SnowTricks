@@ -1,0 +1,106 @@
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/choicesjs/choices.min.css') }}">
+{% endblock %}
+
+{{ form_start(form) }}
+{% if trick.featuredImage %}
+	{% set background = "background-image: url('"~ trick_image(trick.featuredImage) ~"')" %}
+{% else %}
+	{% set background = "background: #9d9c9c" %}
+{% endif %}
+
+{% if add_mode is not defined %}
+    {% set add_mode = false %}
+{% endif %}
+
+
+<header class="header-show" style="{{ background }}">
+	<aside class="tools-header py-1 px-2">
+		<a href="#" class="text-decoration-none text-success mb-0 h5 me-2" data-bs-toggle="modal" data-bs-target="#editImageModal{{ trick.id }}">
+			<i class="fas fa-pencil-alt"></i>
+		</a>
+
+		<a href="#" class="text-danger mb-0 h5" data-bs-toggle="modal" data-bs-target="#deleteImageModal{{ trick.id }}">
+			<i class="fas fa-trash-alt"></i>
+		</a>
+	</aside>
+
+	<h1 class="title-trick px-5" id="trick-title">{{ trick.name ? trick.name : 'Aucun nom défini' }}</h1>
+</header>
+
+<div class="modal fade" id="editImageModal{{ trick.id }}" tabindex="-1" aria-labelledby="editImageModal{{ trick.id }}Label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editImageModal{{ trick.id }}Label">Gérer l'image</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body fw-bold">
+                {{ form_row(form.featuredImageFile) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deleteImageModal{{ trick.id }}" tabindex="-1" aria-labelledby="deleteImageModal{{ trick.id }}Label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-danger" id="deleteImageModal{{ trick.id }}Label">Supprimer l'image à la une ?</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body text-danger fw-bold">
+				<p>Attention, cette action est irréversible. Supprimer quand même ?</p>
+                {{ form_row(form.deleteFeaturedImage) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+    {{ include(
+        "trick/_form_media.html.twig", {collection: form.images, id_prefix: 'editImage', type: 'images', btn_label: 'Ajouter une image'}) 
+    }}
+    {{ include(
+        "trick/_form_media.html.twig", {collection: form.videos, id_prefix: 'editVideo', type: 'videos', btn_label: 'Ajouter une video'}) 
+    }}
+</div>
+
+<div class="container">
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+
+    {{ form_label(form.categories) }}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_widget(form.categories) }}
+            {{ form_errors(form.categories) }}
+        </div>
+        <div class="col-md-8">
+            {{ form_rest(form) }}
+            <div class="text-end">
+                {% if add_mode == false %}
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ trick.id }}">
+                        <i class="fas fa-trash-alt"></i>
+                        Supprimer
+                    </a>
+                {% endif %}
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    {{ button_label|default('Sauvegarder') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+{% if add_mode == false %}
+    {{ include('trick/_delete_form.html.twig', {add_button_modal: false}) }}
+{% endif %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/choicesjs/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/editTrick.js') }}"></script>
+{% endblock %}

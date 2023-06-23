@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick{% endblock %}
+
+{% block body %}
+    {% if trick.featuredImage %}
+        {% set background = trick_image(trick.featuredImage) %}
+    {% elseif trick.images|length > 0 %}
+        {% set background = trick_image(trick.images[0].filename) %}
+    {% else %}
+        {% set background = asset('assets/2e16d0bac756.jpg') %}
+    {% endif %}
+    
+
+    <article class="container">
+        <header class="header-show" style="background-image: url('{{ background }}')">
+            {% if is_granted('ROLE_USER') %}
+                <aside class="tools-header py-1 px-2">
+                    <a href="{{ path('app_trick_edit', {'id': trick.id}) }}" class="text-decoration-none text-success mb-0 h5 me-2">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+
+                    {{ include('trick/_delete_form.html.twig') }}
+                </aside>
+            {% endif %}
+            <h1 class="title-trick px-5">{{ trick.name }}</h1>
+        </header>
+        
+        {% set totalImages = trick.images|length + trick.videos|length %}
+        <div class="mt-4 gallery {{ totalImages > 5 ? 'public-gallery' : '' }}">
+            {% for image in trick.images %}
+                <a href="{{ trick_image(image.filename) }}" class="text-decoration-none">
+                    <img src="{{ trick_image(image.filename) }}" alt="{{ image.legend }}" class="img-thumbnail">
+                </a>
+            {% endfor %}
+            {% for video in trick.videos %}
+                <div class="img-thumbnail">
+                    {{ video_iframe(video.url) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4 lh-lg">{{ trick.description|nl2br }}</div>
+
+        <div class="mt-4 pb-4 text-center border-bottom">
+            <span class="tags bg-light border rounded-3 p-1 me-2" title="Créé le">
+                <i class="fas fa-calendar-plus"></i>
+                {{ trick.createdAt|date('d/m/Y H:i') }}
+            </span>
+            <span class="tags bg-light border rounded-3 p-1 me-2" title="Dernière mise à jour">
+                <i class="fas fa-pencil-alt"></i>
+                {{ trick.updatedAt ? trick.updatedAt|date('d/m/Y H:i') : trick.createdAt|date('d/m/Y H:i') }}
+            </span>
+            <span class="tags bg-light border rounded-3 p-1 me-2" title="Auteur">
+                <i class="fas fa-user"></i>
+                {{ trick.author ? trick.author.username }}
+            </span>
+            <span class="tags bg-light border rounded-3 p-1 mx-1" title="Catégorie">
+                <i class="fas fa-tag"></i>
+                {{ trick.categories|join(', ') }}
+            </span>
+        </div>
+
+        {% if is_granted('ROLE_USER') %}
+            <div class="border-bottom mb-3 pt-4 pb-5 px-5">
+                {{ form_start(form) }}
+                    {{ form_label(form.content) }}
+                    <div class="input-group">
+                        {{ form_widget(form.content) }}
+                        <button class="btn btn-success" type="submit">Envoyer</button>
+                    </div>
+                    {{ form_errors(form.content) }}
+                    {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+
+        <div class="mt-2">
+            <h2 clas="h4">Derniers commentaires</h2>
+            <div class="row" id="load-container">
+                {% include "trick/_comment_list.html.twig" %}
+            </div>
+            {% if currentRecords < total %}
+                <footer class="text-center mt-2">
+                    <a href="#" data-type="comment" data-trick="{{ trick.id }}" data-offset="{{ offset }}" id="load-more" class="btn btn-primary">
+                        <i class="fas fa-chevron-circle-down"></i> Charger plus
+                    </a>
+                </footer>
+            {% endif %}
+        </div>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/load-more.js') }}"></script>
+{% endblock %}

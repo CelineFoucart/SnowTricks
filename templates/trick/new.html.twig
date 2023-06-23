@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau trick{% endblock %}
+
+{% block body %}
+    <article>
+        {{ include('trick/_form.html.twig', {add_mode: true}) }}
+    </article>
+{% endblock %}

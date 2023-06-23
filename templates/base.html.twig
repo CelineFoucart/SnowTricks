@@ -2,18 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %} | {{ app_name }}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('assets/bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+        <meta name="description" content="Bienvenue sur {{ app_name }}, un site consacré au Snowboard et alimenté par la communauté. Venez contribuer !">
+        {% block stylesheets %} {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% include "components/_navbar.html.twig" %}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        
+        <footer class="bg-light mt-4 p-5">
+            <p class="small mb-0">Copyright @ {{ 'now'|date("Y") }} </p>
+        </footer>
+        <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

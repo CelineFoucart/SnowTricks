@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -42,6 +43,28 @@ class ImageUploader
             $this->error = $th->getMessage();
 
             return null;
+        }
+    }
+
+    public function remove(string $filename, string $type = 'image') : bool 
+    {
+        $path = ($type === 'avatar') ? $this->avatarDirectory : $this->imageDirectory;
+
+        $fileSystem = new Filesystem();
+        $pathFile = $path . DIRECTORY_SEPARATOR . $filename;
+
+        try {
+            if ($fileSystem->exists($pathFile)) {
+                $fileSystem->remove($path . DIRECTORY_SEPARATOR . $filename);
+
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Exception $th) {
+            $this->error = $th->getMessage();
+
+            return false;
         }
     }
 

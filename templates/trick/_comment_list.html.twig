@@ -1,0 +1,21 @@
+{% for comment in comments %}
+    <div class="col-md-9 mx-auto d-flex align-items-center border-bottom">
+        <section class="p-3">
+            <header class="d-flex align-items-center mb-1">
+                {% if comment.author.avatar %}
+                    <img src="{{ avatar_image(comment.author.avatar) }}" class="rounded-circle avatar" alt="avatar de l'utilisateur">
+                {% else %}
+                    <span class="no-avatar pe-2"><i class="fas fa-user-circle"></i></span>
+                {% endif %}
+                <div>
+                    <h3 class="h5 mb-2 me-1">{{ comment.author.username }}</h3>
+                    <p class="small mb-0">publié le {{ comment.createdAt|date("m/d/Y H:i") }}</p>
+                </div>
+            </header>
+
+            {{ comment.content|nl2br }}
+        </section>
+    </div>
+{% else %}
+    <p class="text-center">Aucun commentaire</p>
+{% endfor %}

@@ -1,0 +1,141 @@
+.md-only,
+.sm-only {
+    display: none;
+}
+
+.avatar {
+    height: 55px;
+    width: 55px;
+}
+
+.no-avatar {
+    font-size: 55px;
+}
+
+.navbar-nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.header-index {
+    color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 600px;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
+		url(2e16d0bac756.jpg) center center / cover no-repeat;
+}
+
+
+.header-show {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.tools-header {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.title-trick, 
+.tools-header {
+    background: rgba(255, 255, 255, 0.70);
+}
+
+.tags {
+    width: 200px;
+    display: inline-block;
+}
+
+.edit-gallery-container,
+.public-gallery {
+    overflow-x: scroll;
+    display: flex;
+    padding-top: 5px;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-gallery-container::-webkit-scrollbar,
+.public-gallery::-webkit-scrollbar {
+    width: 1em;
+} 
+.edit-gallery-container::-webkit-scrollbar-track,
+.public-gallery::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.edit-gallery-container::-webkit-scrollbar-thumb,
+.public-gallery::-webkit-scrollbar-thumb {
+    background-color: #666;
+    outline: 1px solid #eee;
+}
+
+.edit-gallery-container > * {
+    flex-basis: 358px;
+    flex-shrink: 0;
+}
+
+.public-gallery > * {
+    flex-basis: 358px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.gallery {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gallery > * {
+    width: 358px;
+}
+
+iframe {
+    width: 100%;
+}
+
+.img-thumbnail iframe {
+    max-width: 358px;
+}
+
+.miniature {
+    height:152px; width: 304px; object-fit: cover;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+    .sm-only {
+        display: inline-block;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 992px) { 
+    .header-index {
+        height: 900px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.82), rgba(54, 54, 54, 0.3)),
+            url(desktop.png) center center / cover no-repeat;
+    }
+
+    .md-only{
+        display: inline;
+    }
+
+    .navbar-nav {
+        gap: 0;
+    }
+}

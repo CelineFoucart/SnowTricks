@@ -16,9 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrickRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private int $perPage = 12;
+
+    public function __construct(ManagerRegistry $registry, string $perPage)
     {
         parent::__construct($registry, Trick::class);
+        $this->perPage = $perPage;
     }
 
     public function save(Trick $entity, bool $flush = false): void
@@ -39,28 +42,31 @@ class TrickRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Trick[] Returns an array of Trick objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Trick[] Returns an array of Trick objects
+     */
+    public function findPaginated(int $offset = 0, ?int $limit = null): array
+    {
+        if (null === $limit) {
+            $limit = $this->perPage;
+        }
+        
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.name', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
-//    public function findOneBySomeField($value): ?Trick
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneBySlug(string $slug): ?Trick
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

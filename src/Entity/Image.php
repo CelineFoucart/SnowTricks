@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ImageRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImageRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -14,9 +18,13 @@ class Image
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $filename = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $legend = null;
 
     #[ORM\Column]
@@ -25,6 +33,8 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
+
+    private ?UploadedFile $uploadedFile = null;
 
     public function getId(): ?int
     {
@@ -75,6 +85,32 @@ class Image
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get the value of uploadedFile
+     *
+     * @return ?File
+     */
+    public function getUploadedFile(): ?File
+    {
+        return $this->uploadedFile;
+    }
+
+    /**
+     * Set the value of uploadedFile
+     *
+     * @param ?File $uploadedFile
+     *
+     * @return self
+     */
+    public function setUploadedFile(?UploadedFile $uploadedFile): self
+    {
+        $this->uploadedFile = $uploadedFile;
 
         return $this;
     }
