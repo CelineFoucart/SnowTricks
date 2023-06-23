@@ -14,8 +14,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['username', 'email'])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['username', 'email'], message: 'Un compte utilise déjà cette valeur')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -24,7 +23,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Length(min: 1, max: 180)]
+    #[Assert\Length(
+        min: 1, 
+        max: 180, 
+        minMessage:"Le pseudo doit faire au moins 1 caractères", 
+        maxMessage:"Le pseudo doit faire moins de 180 caractères"
+    )]
     #[Assert\NotBlank]
     private ?string $username = null;
 
@@ -39,8 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Email()]
-    #[Assert\Length(min: 5, max: 255)]
+    #[Assert\Email(message:"Ce champ n'est pas un email valide")]
+    #[Assert\Length(
+        min: 5, 
+        max: 255,
+        minMessage:"Ce champ doit faire au moins 5 caractères", 
+        maxMessage:"Ce champ doit faire moins de 255 caractères"
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -174,7 +183,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsActive(): ?bool
+    public function getIsActive(): ?bool
     {
         return $this->isActive;
     }

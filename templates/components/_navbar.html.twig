@@ -25,7 +25,10 @@
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-user-alt fa-fw"></i> <span class="md-only">Mon compte</span></a>
+                    <a class="nav-link" href="{{ path('app_profile') }}">
+                        <i class="fas fa-user-alt fa-fw"></i> 
+                        <span class="md-only">Mon compte</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">
@@ -40,7 +43,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-edit"></i> <span class="md-only">Inscription</span></a>
+                    <a class="nav-link" href="{{ path('app_register') }}">
+                        <i class="fas fa-edit"></i> <span class="md-only">Inscription</span>
+                    </a>
                 </li>
             {% endif %}
         </ul>

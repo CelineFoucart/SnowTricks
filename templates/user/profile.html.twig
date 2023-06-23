@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil {{ parent() }} {% endblock %}
+
+{% block body %}
+    <header>
+        <h1 class="mb-5 display-2 font-weight-normal text-center">Mon profil</h1>
+    </header>
+
+    <article class="container my-5">
+        {% if user.isActive == false %}
+            <div class="alert alert-danger">
+                Votre compte n'a pas été activé. Veuillez cliquer sur le lien dans le mail d'activation pour pouvoir contribuer.
+            </div>
+        {% endif %}
+
+        {% include "components/_flashes.html.twig" %}
+
+        <div class="row profile-container">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="text-center">
+                            {% if user.avatar %}
+                                <img src="{{ avatar_image(user.avatar) }}" class="rounded-circle avatar" alt="avatar de l'utilisateur">
+                            {% else %}
+                                <span class="no-avatar"><i class="fas fa-user-circle"></i></span>
+                            {% endif %}
+                        </div>
+                        <h2 class="h5 text-center">{{ user.username }}</h2>
+                        <p class="text-muted text-center">Inscription le {{ user.createdAt|date("m/d/Y à H:i") }}</p>
+                        <div class="text-center mb-3 mt-4 d-flex justify-content-center">
+                            <div class="border bg-light rounded-3 p-2 me-2">
+                                {{ stats.tricks }} tricks
+                            </div>
+                            <div class="border bg-light rounded-3 p-2">
+                                {{ stats.comments }} commentaires
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h5 mb-0 pb-2 border-bottom card-title">Mes informations</h2>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th class="pb-3">Pseudo</th>
+                                    <td class="pb-3">{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-3">Email</th>
+                                    <td class="pb-3">{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-3">Roles</th>
+                                    <td class="pb-3">{{ user.roles|join(', ', ' et ') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

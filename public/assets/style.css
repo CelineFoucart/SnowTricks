@@ -12,6 +12,10 @@
     font-size: 55px;
 }
 
+.profile-container .no-avatar {
+    font-size: 100px;
+}
+
 .navbar-nav {
     flex-direction: row;
     align-items: center;

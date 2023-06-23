@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
-#[UniqueEntity('name')]
+#[UniqueEntity(['name'], message:"Cette valeur est déjà utilisée")]
 class Trick
 {
     #[ORM\Id]
@@ -21,7 +21,12 @@ class Trick
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 1, max: 255)]
+    #[Assert\Length(
+        min: 1, 
+        max: 255,
+        minMessage:"Ce champ doit faire au moins 1 caractère", 
+        maxMessage:"Ce champ doit faire moins de 255 caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -29,7 +34,12 @@ class Trick
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 20000)]
+    #[Assert\Length(
+        min: 2, 
+        max: 20000,
+        minMessage:"Ce champ doit faire au moins 2 caractères", 
+        maxMessage:"Ce champ doit faire moins de 20 000 caractères"
+    )]
     private ?string $description = null;
 
     #[ORM\Column]

@@ -20,7 +20,12 @@ class Category
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\Length(
+        min: 2, 
+        max: 255,
+        minMessage:"Ce champ doit faire au moins 2 caractères", 
+        maxMessage:"Ce champ doit faire moins de 255 caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'categories')]

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Se connecter{% endblock %}
+{% block title %}Se connecter {{ parent() }} {% endblock %}
 
 {% block body %}
     <header class="header-index">
@@ -8,37 +8,34 @@
     </header>
 
     <article class="container my-5">
-        <div class="border mx-auto shadow">
-            <div class="row">
-                <div class="col-7 p-5">
-                    <h2 class="h3 text-center mb-4">Connectez-vous pour contribuer</h2>
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+        <div class="row">
+            <div class="col-7 p-5 border mx-auto shadow">
+                <h2 class="h3 text-center mb-4">Connectez-vous pour contribuer</h2>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {% include "components/_flashes.html.twig" %}
 
-                    <form method="post">
-                        <div class="mb-4">
-                            <label for="inputUsername" class="mb-2">Pseudo</label>
-                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-                        </div>
-                        <div class="mb-4">
-                            <label for="inputPassword" class="mb-2">Mot de passe</label>
-                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                        </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        <p class="text-center mb-4"><a href="">Mot de passe oublié ?</a></p>
-                        <div class="text-center">
-                            <button class="btn btn-primary" type="submit">
-                                Se connecter
-                            </button>
-                            <p class="small fw-bold mt-2 pt-1 mb-0">Pas de compte ? <a href="#!" class="link-danger">Inscrivez-vous</a>.</p>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-5 bg-primary text-light d-flex flex-column justify-content-center align-items-center">
-                    <h2 class="h1">{{ app_name }}</h2>
-                    <p class="lead mt-4 text-center">{{app_description }}</p>
-                </div>
+                <form method="post">
+                    <div class="mb-4">
+                        <label for="inputUsername" class="mb-2">Pseudo</label>
+                        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                    </div>
+                    <div class="mb-4">
+                        <label for="inputPassword" class="mb-2">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <p class="text-center mb-4"><a href="">Mot de passe oublié ?</a></p>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Se connecter
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                            Pas de compte ? <a href="{{ path('app_register') }}" class="link-danger">Inscrivez-vous</a>.
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     </article>
