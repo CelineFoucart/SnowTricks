@@ -4,7 +4,7 @@
 
 {% block body %}
     <header>
-        <h1 class="mb-5 display-2 font-weight-normal text-center">Mon profil</h1>
+        <h1 class="mb-5 mt-4 display-2 font-weight-normal text-center">Mon profil</h1>
     </header>
 
     <article class="container my-5">
@@ -59,6 +59,17 @@
                                     <td class="pb-3">{{ user.roles|join(', ', ' et ') }}</td>
                                 </tr>
                             </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-4">
+                    <div class="card-body">
+                        <h2 class="h5 pb-2 border-bottom card-title">Modifier mes informations</h2>
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        {{ form_end(form) }}
                         </table>
                     </div>
                 </div>
