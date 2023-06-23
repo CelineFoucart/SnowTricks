@@ -27,7 +27,7 @@ class ApiController extends AbstractController
         );
     }
 
-    #[Route('/comment/{id}/{offset}', name: 'api_trick_index')]
+    #[Route('/comment/{id}/{offset}', name: 'api_comment_index')]
     public function commentIndex(int $perPage, string $offset, Trick $trick, CommentRepository $commentRepository): JsonResponse
     {
         $offset = (int) $offset;
