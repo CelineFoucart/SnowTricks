@@ -31,10 +31,10 @@
                         <p class="text-muted text-center">Inscription le {{ user.createdAt|date("m/d/Y à H:i") }}</p>
                         <div class="text-center mb-3 mt-4 d-flex justify-content-center">
                             <div class="border bg-light rounded-3 p-2 me-2">
-                                {{ stats.tricks }} tricks
+                                {{ stats.tricks }} trick{{ stats.tricks > 1 ? 's' : '' }}
                             </div>
                             <div class="border bg-light rounded-3 p-2">
-                                {{ stats.comments }} commentaires
+                                {{ stats.comments }} commentaire{{ stats.comments > 1 ? 's' : '' }}
                             </div>
                         </div>
                     </div>

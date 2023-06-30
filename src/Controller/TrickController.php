@@ -71,8 +71,9 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
+            $this->addFlash( 'success', 'Le trick a bien été créé.');
 
-            return $this->redirectToRoute('app_trick_show', [ 'slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->renderForm('trick/new.html.twig', [
@@ -91,8 +92,9 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
+            $this->addFlash( 'success', 'Le trick a bien été modifié.');
 
-            return $this->redirectToRoute('app_trick_show', [ 'slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->renderForm('trick/edit.html.twig', [
