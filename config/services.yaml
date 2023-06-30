@@ -46,3 +46,9 @@ services:
             $secret: '%app.secret%'
             $contactEmail: '%app.contactEmail%'
             $contactName: '%app.contactName%'
+    
+    App\Security\ResetPasswordHelper:
+        arguments:
+            $contactEmail: '%app.contactEmail%'
+            $contactName: '%app.contactName%'
+            $secret: '%app.secret%'

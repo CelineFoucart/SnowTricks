@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinitialiser mon mot de passe</title>
+</head>
+<body>
+    <h1>Bonjour !</h1>
+
+    <p>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant :</p>
+
+    <p style="text-align:center;">
+        <a href="{{ url('app_reset_password', {token: resetPassword.hashedToken}) }}">
+            Réinitialiser
+        </a>
+    </p>
+
+    <p>Ce lien expirera dans {{ resetPassword.expiredAt|date('d/m/Y H:i:s') }}.</p>
+
+    <p><br>A bientôt !</p>
+</body>
+</html>
