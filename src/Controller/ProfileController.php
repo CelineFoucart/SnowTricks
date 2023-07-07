@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
+use App\Service\ImageUploader;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
 {
+    public function __construct(
+        private ImageUploader $imageUploader
+    ) {
+    }
+
     #[Route('/profile', name: 'app_profile')]
     public function profile(UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
@@ -32,6 +38,17 @@ class ProfileController extends AbstractController
             if ($plainPassword) {
                 $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             }
+
+            $avatar = $form->get('uploadedFile')->getData();
+            if ($avatar) {
+                $newFileName = $this->imageUploader->move($avatar, 'avatar');
+            }
+
+            if ($user->getAvatar() !== null) {
+                $this->imageUploader->remove($user->getAvatar(), 'avatar');
+            }
+
+            $user->setAvatar($newFileName);
 
             $userRepository->save($user, true);
             $this->addFlash('success', 'Les modifications ont bien été enregistrées.');

@@ -26,9 +26,6 @@ class ProfileType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'help' => 'Le mot de passe doit comporter au moins 8 caractères',
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez choisir un mot de passe',
-                    ]),
                     new Length([
                         'min' => 8,
                         'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',

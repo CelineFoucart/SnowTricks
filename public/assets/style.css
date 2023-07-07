@@ -19,11 +19,11 @@ main {
     width: 55px;
 }
 
-.no-avatar {
+.block-avatar {
     font-size: 55px;
 }
 
-.profile-container .no-avatar {
+.profile-container .block-avatar {
     font-size: 100px;
 }
 

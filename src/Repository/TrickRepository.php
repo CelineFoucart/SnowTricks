@@ -18,10 +18,10 @@ class TrickRepository extends ServiceEntityRepository
 {
     private int $perPage = 12;
 
-    public function __construct(ManagerRegistry $registry, string $perPage)
+    public function __construct(ManagerRegistry $registry, string $perPageTrick)
     {
         parent::__construct($registry, Trick::class);
-        $this->perPage = $perPage;
+        $this->perPage = $perPageTrick;
     }
 
     public function save(Trick $entity, bool $flush = false): void
