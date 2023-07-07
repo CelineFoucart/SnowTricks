@@ -18,13 +18,23 @@ class Image
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\NotBlank(message:"Ce champ ne peut être vide")]
+    #[Assert\Length(
+        min: 2, 
+        max: 255,
+        minMessage:"Ce champ doit faire au moins 2 caractères", 
+        maxMessage:"Ce champ doit faire moins de 255 caractères"
+    )]
     private ?string $filename = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\Length(
+        min: 2, 
+        max: 255,
+        minMessage:"Ce champ doit faire au moins 2 caractères", 
+        maxMessage:"Ce champ doit faire moins de 255 caractères"
+    )]
     private ?string $legend = null;
 
     #[ORM\Column]

@@ -1,3 +1,14 @@
+#content-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+main {
+    flex: 1;
+}
+
 .md-only,
 .sm-only {
     display: none;
@@ -10,6 +21,10 @@
 
 .no-avatar {
     font-size: 55px;
+}
+
+.profile-container .no-avatar {
+    font-size: 100px;
 }
 
 .navbar-nav {

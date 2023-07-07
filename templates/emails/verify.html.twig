@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activez votre compte</title>
+</head>
+<body>
+    <h1>Activez votre compte</h1>
+    <p>Bonjour {{ user.username }},</p>
+    <p>Votre inscription sur {{ app_name }} est à valider en cliquant sur le lien ci-dessous :</p>
+    <p><a href="{{ absolute_url(path(route, {token: token, expiredAtTimestamp: expiredAtTimestamp, id: user.id})) }}">Lien</a></p>
+    <p>Ce lien expirera dans {{ expiredAt|date('d/m/Y à H:i:m') }}</p>
+</body>
+</html>

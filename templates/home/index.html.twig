@@ -12,10 +12,11 @@
 
     <article class="container my-5" id="tricks">
         {% if is_granted('ROLE_USER') %}
-            <div class="text-end">
+            <div class="text-end mb-1">
                 <a href="{{ path('app_trick_new') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Ajouter</a>
             </div>
         {% endif %}
+        {% include "components/_flashes.html.twig" %}
         <div class="row" id="load-container">
             {% include "trick/_trick_list.html.twig" %}
         </div>
