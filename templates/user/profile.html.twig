@@ -22,12 +22,12 @@
                     <div class="card-body">
                         <div class="text-center">
                             {% if user.avatar %}
-                                <img src="{{ avatar_image(user.avatar) }}" class="rounded-circle avatar" alt="avatar de l'utilisateur">
+                                <img src="{{ avatar_image(user.avatar) }}" class="rounded-circle" alt="avatar de l'utilisateur">
                             {% else %}
                                 <span class="no-avatar"><i class="fas fa-user-circle"></i></span>
                             {% endif %}
                         </div>
-                        <h2 class="h5 text-center">{{ user.username }}</h2>
+                        <h2 class="h5 mt-3 text-center">{{ user.username }}</h2>
                         <p class="text-muted text-center">Inscription le {{ user.createdAt|date("m/d/Y à H:i") }}</p>
                         <div class="text-center mb-3 mt-4 d-flex justify-content-center">
                             <div class="border bg-light rounded-3 p-2 me-2">
