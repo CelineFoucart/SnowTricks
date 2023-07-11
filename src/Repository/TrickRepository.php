@@ -50,7 +50,7 @@ class TrickRepository extends ServiceEntityRepository
         if (null === $limit) {
             $limit = $this->perPage;
         }
-        
+
         return $this->createQueryBuilder('t')
             ->orderBy('t.name', 'ASC')
             ->setFirstResult($offset)

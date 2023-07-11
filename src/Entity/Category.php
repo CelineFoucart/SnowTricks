@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[UniqueEntity('name')]
@@ -21,10 +21,10 @@ class Category
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 2, 
+        min: 2,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 2 caractères", 
-        maxMessage:"Ce champ doit faire moins de 255 caractères"
+        minMessage: 'Ce champ doit faire au moins 2 caractères',
+        maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $name = null;
 

@@ -4,10 +4,10 @@ namespace App\EventSubscriber;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use Doctrine\ORM\Events;
 use App\Service\ImageUploader;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Events;
 
 class ImageSubscriber implements EventSubscriberInterface
 {
@@ -27,8 +27,6 @@ class ImageSubscriber implements EventSubscriberInterface
     {
         $entity = $args->getObject();
 
-        
-
         if ($entity instanceof Image) {
             $this->imageUploader->remove($entity->getFilename());
         } elseif ($entity instanceof Trick) {
@@ -37,5 +35,4 @@ class ImageSubscriber implements EventSubscriberInterface
             }
         }
     }
-    
 }

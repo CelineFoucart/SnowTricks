@@ -2,21 +2,21 @@
 
 namespace App\Security;
 
-use App\Entity\User;
-use DateTimeImmutable;
 use App\Entity\ResetPassword;
-use Symfony\Component\Mime\Address;
+use App\Entity\User;
 use App\Repository\ResetPasswordRepository;
+use DateTimeImmutable;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 final class ResetPasswordHelper
 {
     public function __construct(
         private ResetPasswordRepository $resetPasswordRepository,
         private MailerInterface $mailer,
-        private string $contactEmail, 
+        private string $contactEmail,
         private string $contactName,
         private string $secret
     ) {
@@ -59,7 +59,7 @@ final class ResetPasswordHelper
     {
         $resetPassword = $this->retrieveResetPassword($request);
 
-        if ($resetPassword === null) {
+        if (null === $resetPassword) {
             return null;
         }
 
@@ -75,7 +75,7 @@ final class ResetPasswordHelper
 
         if (!hash_equals($token, $resetPassword->getHashedToken())) {
             $this->resetPasswordRepository->remove($resetPassword);
-            
+
             return null;
         }
 
@@ -85,7 +85,7 @@ final class ResetPasswordHelper
     public function removeResetPassword(Request $request): void
     {
         $resetPassword = $this->retrieveResetPassword($request);
-        
+
         if ($resetPassword) {
             $this->resetPasswordRepository->remove($resetPassword);
         }
@@ -94,7 +94,7 @@ final class ResetPasswordHelper
     private function generateToken(User $user)
     {
         $encodedData = json_encode([$user->getId(), $user->getEmail()]);
-        
+
         return base64_encode(hash_hmac('sha256', $encodedData, $this->secret, true));
     }
 

@@ -4,14 +4,14 @@ namespace App\Form;
 
 use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class TrickType extends AbstractType
 {
@@ -19,7 +19,7 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom*'
+                'label' => 'Nom*',
             ])
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,
@@ -45,7 +45,7 @@ class TrickType extends AbstractType
                 'label' => 'Description*',
                 'attr' => [
                     'rows' => '6',
-                ]
+                ],
             ])
             ->add('featuredImageFile', FileType::class, [
                 'mapped' => false,
@@ -59,8 +59,8 @@ class TrickType extends AbstractType
                             'image/jpeg',
                         ],
                         'mimeTypesMessage' => "Veuillez ajouter une image ayant l'extension .png, .jpg ou .jpeg",
-                    ])
-                ]
+                    ]),
+                ],
             ])
             ->add('deleteFeaturedImage', CheckboxType::class, [
                 'mapped' => false,

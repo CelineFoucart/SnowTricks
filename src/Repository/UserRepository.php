@@ -56,7 +56,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
-    public function findUserStats(int $userId): array 
+    public function findUserStats(int $userId): array
     {
         return $this->createQueryBuilder('u')
             ->select('COUNT(DISTINCT t.id) AS tricks', 'COUNT(DISTINCT c.id) AS comments')

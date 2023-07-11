@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\UserAuthenticator;
 use App\Security\EmailVerifier;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -46,7 +44,7 @@ class RegistrationController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->emailVerifier->sendConfirmationRequest($user, 'verify', 'app_verify_email');
-            $this->addFlash('success', "Votre compte a été créé et un email de confirmation vous a été envoyé.");
+            $this->addFlash('success', 'Votre compte a été créé et un email de confirmation vous a été envoyé.');
 
             return $this->redirectToRoute('app_home');
         }

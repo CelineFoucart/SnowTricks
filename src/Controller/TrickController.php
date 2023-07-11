@@ -2,24 +2,23 @@
 
 namespace App\Controller;
 
-use DateTime;
-use App\Entity\User;
-use App\Entity\Trick;
-use DateTimeImmutable;
 use App\Entity\Comment;
-use App\Form\TrickType;
+use App\Entity\Trick;
+use App\Entity\User;
 use App\Form\CommentType;
-use App\Service\ImageUploader;
-use App\Repository\TrickRepository;
+use App\Form\TrickType;
 use App\Repository\CommentRepository;
+use App\Repository\TrickRepository;
+use App\Service\ImageUploader;
+use DateTime;
+use DateTimeImmutable;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/trick')]
 class TrickController extends AbstractController
@@ -37,11 +36,11 @@ class TrickController extends AbstractController
         $comment = (new Comment())->setTrick($trick)->setAuthor($currentUser);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid() && $currentUser instanceof User) { 
+
+        if ($form->isSubmitted() && $form->isValid() && $currentUser instanceof User) {
             $comment->setCreatedAt(new DateTimeImmutable())->setUpdatedAt(new DateTime());
             $commentRepository->save($comment, true);
-            $this->addFlash( 'success', 'Votre commentaire a bien été enregistré.');
+            $this->addFlash('success', 'Votre commentaire a bien été enregistré.');
 
             return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
         }
@@ -71,7 +70,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
-            $this->addFlash( 'success', 'Le trick a bien été créé.');
+            $this->addFlash('success', 'Le trick a bien été créé.');
 
             return $this->redirectToRoute('app_home');
         }
@@ -92,7 +91,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $this->setTrickAfterSubmit($trick, $form);
             $trickRepository->save($trick, true);
-            $this->addFlash( 'success', 'Le trick a bien été modifié.');
+            $this->addFlash('success', 'Le trick a bien été modifié.');
 
             return $this->redirectToRoute('app_home');
         }
@@ -122,13 +121,13 @@ class TrickController extends AbstractController
         if ($featuredImageFile && !$deleteFeaturedImage) {
             $newFileName = $this->imageUploader->move($featuredImageFile);
 
-            if ($trick->getFeaturedImage() !== null) {
+            if (null !== $trick->getFeaturedImage()) {
                 $this->imageUploader->remove($trick->getFeaturedImage());
             }
 
             $trick->setFeaturedImage($newFileName);
         }
-        
+
         if ($deleteFeaturedImage) {
             $status = $this->imageUploader->remove($trick->getFeaturedImage());
 
@@ -139,10 +138,10 @@ class TrickController extends AbstractController
 
         $images = $form->get('images')->getData();
         foreach ($images as $image) {
-            if ($image->getId() === null) {
+            if (null === $image->getId()) {
                 $filename = $this->imageUploader->move($image->getUploadedFile());
                 $image->setFilename($filename)->setCreatedAt(new DateTimeImmutable())->setTrick($trick);
-            } elseif ($image->getUploadedFile() !== null) {
+            } elseif (null !== $image->getUploadedFile()) {
                 $this->imageUploader->remove($image->getFilename());
                 $filename = $this->imageUploader->move($image->getUploadedFile());
                 $image->setFilename($filename);
@@ -155,7 +154,7 @@ class TrickController extends AbstractController
         }
 
         $slug = $this->slugger->slug(strtolower($trick->getName()));
-        $trick ->setSlug($slug)->setUpdatedAt(new DateTime());
+        $trick->setSlug($slug)->setUpdatedAt(new DateTime());
 
         if (null === $trick->getAuthor()) {
             $trick->setAuthor($this->getUser());

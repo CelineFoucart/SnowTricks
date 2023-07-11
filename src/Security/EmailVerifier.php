@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Security;
 
-use DateTime;
-use DateTimeZone;
 use App\Entity\User;
-use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 class EmailVerifier
 {
@@ -26,10 +25,7 @@ class EmailVerifier
     /**
      * Sends the conformation email.
      *
-     * @param User $user
-     * @param string $template
-     * @param string $route
-     * @return boolean the success status
+     * @return bool the success status
      */
     public function sendConfirmationRequest(User $user, string $template, string $route): bool
     {
@@ -39,14 +35,14 @@ class EmailVerifier
         $email = (new TemplatedEmail())
                 ->from(new Address($this->contactEmail, $this->contactName))
                 ->to($user->getEmail())
-                ->subject("Confirmez votre mot de passe")
+                ->subject('Confirmez votre mot de passe')
                 ->htmlTemplate("emails/$template.html.twig")
                 ->context($context)
             ;
 
         try {
             $this->mailer->send($email);
-            
+
             return true;
         } catch (TransportExceptionInterface $th) {
             return false;
@@ -56,10 +52,7 @@ class EmailVerifier
     /**
      * Checks the token and update user status in case of success.
      *
-     * @param string $token
-     * @param integer $expiredAtTimestamp
-     * @param User $user
-     * @return boolean the success status
+     * @return bool the success status
      */
     public function handleEmailConfirmation(string $token, int $expiredAtTimestamp, User $user): bool
     {
@@ -69,7 +62,7 @@ class EmailVerifier
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            
+
             return true;
         } catch (\Exception $th) {
             return false;
@@ -78,9 +71,7 @@ class EmailVerifier
 
     /**
      * Generates a token and returns an array of params for the email template.
-     * 
-     * @param User $user
-     * 
+     *
      * @return array the params for the view
      */
     private function generateToken(User $user): array
@@ -91,21 +82,15 @@ class EmailVerifier
         $token = base64_encode(hash_hmac('sha256', $encodedData, $this->secret, true));
 
         return [
-            'user' => $user, 
-            'token' => $token, 
+            'user' => $user,
+            'token' => $token,
             'expiredAt' => \DateTimeImmutable::createFromFormat('U', (string) $expiredAtTimestamp),
-            'expiredAtTimestamp' => $expiredAtTimestamp
+            'expiredAtTimestamp' => $expiredAtTimestamp,
         ];
     }
 
     /**
      * Checks if the token is valid.
-     * 
-     * @param string $token
-     * @param int $expiredAtTimestamp
-     * @param User $user
-     * 
-     * @return void
      */
     private function checkToken(string $token, int $expiredAtTimestamp, User $user): void
     {
@@ -113,21 +98,19 @@ class EmailVerifier
         $limit = \DateTimeImmutable::createFromFormat('U', (string) $expiredAtTimestamp);
 
         if ($current > $limit) {
-            throw new \Exception("Invalid Token");
+            throw new \Exception('Invalid Token');
         }
 
         $encodedData = json_encode([$user->getId(), $user->getEmail()]);
         $currentToken = base64_encode(hash_hmac('sha256', $encodedData, $this->secret, true));
-        
+
         if (!hash_equals($currentToken, $token)) {
-            throw new \Exception("Invalid Token");
+            throw new \Exception('Invalid Token');
         }
     }
 
     /**
-     * Get the value of lifetime
-     *
-     * @return int
+     * Get the value of lifetime.
      */
     public function getLifetime(): int
     {
@@ -135,11 +118,7 @@ class EmailVerifier
     }
 
     /**
-     * Set the value of lifetime
-     *
-     * @param int $lifetime
-     *
-     * @return self
+     * Set the value of lifetime.
      */
     public function setLifetime(int $lifetime): self
     {

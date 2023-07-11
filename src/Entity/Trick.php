@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\TrickRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\TrickRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
-#[UniqueEntity(['name'], message:"Cette valeur est déjà utilisée")]
+#[UniqueEntity(['name'], message: 'Cette valeur est déjà utilisée')]
 class Trick
 {
     #[ORM\Id]
@@ -22,10 +22,10 @@ class Trick
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 1, 
+        min: 1,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 1 caractère", 
-        maxMessage:"Ce champ doit faire moins de 255 caractères"
+        minMessage: 'Ce champ doit faire au moins 1 caractère',
+        maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $name = null;
 
@@ -35,10 +35,10 @@ class Trick
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 2, 
+        min: 2,
         max: 20000,
-        minMessage:"Ce champ doit faire au moins 2 caractères", 
-        maxMessage:"Ce champ doit faire moins de 20 000 caractères"
+        minMessage: 'Ce champ doit faire au moins 2 caractères',
+        maxMessage: 'Ce champ doit faire moins de 20 000 caractères'
     )]
     private ?string $description = null;
 
@@ -54,10 +54,10 @@ class Trick
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $featuredImage = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade:["persist"])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade:["persist"])]
+    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $videos;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tricks')]

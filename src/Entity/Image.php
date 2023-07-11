@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\ImageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ImageRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,22 +18,22 @@ class Image
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Ce champ ne peut être vide")]
+    #[Assert\NotBlank(message: 'Ce champ ne peut être vide')]
     #[Assert\Length(
-        min: 2, 
+        min: 2,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 2 caractères", 
-        maxMessage:"Ce champ doit faire moins de 255 caractères"
+        minMessage: 'Ce champ doit faire au moins 2 caractères',
+        maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $filename = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 2, 
+        min: 2,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 2 caractères", 
-        maxMessage:"Ce champ doit faire moins de 255 caractères"
+        minMessage: 'Ce champ doit faire au moins 2 caractères',
+        maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $legend = null;
 
@@ -75,12 +75,12 @@ class Image
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -99,10 +99,8 @@ class Image
         return $this;
     }
 
-
-
     /**
-     * Get the value of uploadedFile
+     * Get the value of uploadedFile.
      *
      * @return ?File
      */
@@ -112,11 +110,9 @@ class Image
     }
 
     /**
-     * Set the value of uploadedFile
+     * Set the value of uploadedFile.
      *
      * @param ?File $uploadedFile
-     *
-     * @return self
      */
     public function setUploadedFile(?UploadedFile $uploadedFile): self
     {

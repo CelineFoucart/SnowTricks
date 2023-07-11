@@ -17,11 +17,11 @@ class ApiController extends AbstractController
     public function trickIndex(int $perPageTrick, string $offset, TrickRepository $trickRepository): JsonResponse
     {
         $offset = (int) $offset;
-        $html = $this->renderView("trick/_trick_list.html.twig", ['tricks' => $trickRepository->findPaginated($offset, $perPageTrick)]);
+        $html = $this->renderView('trick/_trick_list.html.twig', ['tricks' => $trickRepository->findPaginated($offset, $perPageTrick)]);
         $total = $trickRepository->count([]);
-        
+
         return $this->json(
-            ['offset' => $perPageTrick + $offset, 'total' => $total, 'html' => $html], 
+            ['offset' => $perPageTrick + $offset, 'total' => $total, 'html' => $html],
             Response::HTTP_OK,
             []
         );
@@ -31,13 +31,13 @@ class ApiController extends AbstractController
     public function commentIndex(int $perPageComment, string $offset, Trick $trick, CommentRepository $commentRepository): JsonResponse
     {
         $offset = (int) $offset;
-        $html = $this->renderView("trick/_comment_list.html.twig", [
+        $html = $this->renderView('trick/_comment_list.html.twig', [
             'comments' => $commentRepository->findPaginated($trick, $offset, $perPageComment),
         ]);
         $total = $commentRepository->countCommentByTrick($trick);
-        
+
         return $this->json(
-            ['offset' => $perPageComment + $offset, 'total' => $total, 'html' => $html], 
+            ['offset' => $perPageComment + $offset, 'total' => $total, 'html' => $html],
             Response::HTTP_OK,
             []
         );

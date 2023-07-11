@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -24,10 +23,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(
-        min: 1, 
-        max: 180, 
-        minMessage:"Le pseudo doit faire au moins 1 caractères", 
-        maxMessage:"Le pseudo doit faire moins de 180 caractères"
+        min: 1,
+        max: 180,
+        minMessage: 'Le pseudo doit faire au moins 1 caractères',
+        maxMessage: 'Le pseudo doit faire moins de 180 caractères'
     )]
     #[Assert\NotBlank]
     private ?string $username = null;
@@ -43,12 +42,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[Assert\Email(message:"Ce champ n'est pas un email valide")]
+    #[Assert\Email(message: "Ce champ n'est pas un email valide")]
     #[Assert\Length(
-        min: 5, 
+        min: 5,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 5 caractères", 
-        maxMessage:"Ce champ doit faire moins de 255 caractères"
+        minMessage: 'Ce champ doit faire au moins 5 caractères',
+        maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $email = null;
 

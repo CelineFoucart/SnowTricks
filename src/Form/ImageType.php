@@ -27,11 +27,11 @@ class ImageType extends AbstractType
                             'image/jpeg',
                         ],
                         'mimeTypesMessage' => "Veuillez ajouter une image ayant l'extension .png, .jpg ou .jpeg",
-                    ])
-                ]
+                    ]),
+                ],
             ])
             ->add('legend', TextType::class, [
-                'label' => 'légende'
+                'label' => 'légende',
             ])
             ->add('filename', HiddenType::class)
         ;

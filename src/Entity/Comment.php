@@ -18,10 +18,10 @@ class Comment
     #[ORM\Column(length: 10000)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 2, 
+        min: 2,
         max: 255,
-        minMessage:"Ce champ doit faire au moins 2 caractères", 
-        maxMessage:"Ce champ doit faire moins de 10 000 caractères"
+        minMessage: 'Ce champ doit faire au moins 2 caractères',
+        maxMessage: 'Ce champ doit faire moins de 10 000 caractères'
     )]
     private ?string $content = null;
 

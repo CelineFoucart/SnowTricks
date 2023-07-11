@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ImageUploader
 {
@@ -23,9 +23,10 @@ class ImageUploader
     /**
      * Move an uploaded file to a directory in the server.
      *
-     * @param  UploadedFile   $file   the file to move
-     * @param  string         $type   the file type, an image or an avatar
-     * @return string|null    null in case of failure or the new file name in case of success
+     * @param UploadedFile $file the file to move
+     * @param string       $type the file type, an image or an avatar
+     *
+     * @return string|null null in case of failure or the new file name in case of success
      */
     public function move(UploadedFile $file, string $type = 'image'): ?string
     {
@@ -34,7 +35,7 @@ class ImageUploader
         $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
-            $path = ($type === 'avatar') ? $this->avatarDirectory : $this->imageDirectory;
+            $path = ('avatar' === $type) ? $this->avatarDirectory : $this->imageDirectory;
             $file->move($path, $newFilename);
             $this->error = null;
 
@@ -46,16 +47,16 @@ class ImageUploader
         }
     }
 
-    public function remove(string $filename, string $type = 'image') : bool 
+    public function remove(string $filename, string $type = 'image'): bool
     {
-        $path = ($type === 'avatar') ? $this->avatarDirectory : $this->imageDirectory;
+        $path = ('avatar' === $type) ? $this->avatarDirectory : $this->imageDirectory;
 
         $fileSystem = new Filesystem();
-        $pathFile = $path . DIRECTORY_SEPARATOR . $filename;
+        $pathFile = $path.DIRECTORY_SEPARATOR.$filename;
 
         try {
             if ($fileSystem->exists($pathFile)) {
-                $fileSystem->remove($path . DIRECTORY_SEPARATOR . $filename);
+                $fileSystem->remove($path.DIRECTORY_SEPARATOR.$filename);
 
                 return true;
             } else {
@@ -69,7 +70,7 @@ class ImageUploader
     }
 
     /**
-     * Get the value of error
+     * Get the value of error.
      *
      * @return ?string
      */

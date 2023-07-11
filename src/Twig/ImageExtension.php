@@ -2,8 +2,8 @@
 
 namespace App\Twig;
 
-use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
@@ -11,7 +11,7 @@ class ImageExtension extends AbstractExtension
         private string $imageDirectory, private string $avatarDirectory
     ) {
     }
-    
+
     public function getFunctions()
     {
         return [
@@ -27,7 +27,7 @@ class ImageExtension extends AbstractExtension
      */
     public function getImageTrickPath(string $imageName): string
     {
-        return '/' . $this->imageDirectory . '/' . $imageName;
+        return '/'.$this->imageDirectory.'/'.$imageName;
     }
 
     /**
@@ -37,6 +37,6 @@ class ImageExtension extends AbstractExtension
      */
     public function getImageAvatarPath(string $imageName): string
     {
-        return '/' . $this->avatarDirectory . '/' . $imageName;
+        return '/'.$this->avatarDirectory.'/'.$imageName;
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Twig;
 
-use Symfony\Component\Validator\Constraints\Url;
-use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 class VideoExtension extends AbstractExtension
 {
-    private const TITLE = "YouTube video player";
-    private const ALLOW = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    private const TITLE = 'YouTube video player';
+    private const ALLOW = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
 
     public function getFunctions()
     {

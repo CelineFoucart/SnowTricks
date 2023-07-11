@@ -50,6 +50,7 @@ class CommentRepository extends ServiceEntityRepository
         if (null === $limit) {
             $limit = self::PER_PAGE;
         }
+
         return $this->createQueryBuilder('c')
             ->orderBy('c.createdAt', 'DESC')
             ->andWhere('c.trick = :trick')

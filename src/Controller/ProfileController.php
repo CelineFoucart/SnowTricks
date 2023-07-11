@@ -4,13 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
-use App\Service\ImageUploader;
 use App\Repository\UserRepository;
+use App\Service\ImageUploader;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
@@ -25,15 +25,15 @@ class ProfileController extends AbstractController
         /** @var User */
         $user = $this->getUser();
 
-        if ($user === null) {
+        if (null === $user) {
             return $this->redirectToRoute('app_login');
         }
 
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
-            $plainPassword =  $form->get('plainPassword')->getData();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('plainPassword')->getData();
 
             if ($plainPassword) {
                 $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
@@ -44,7 +44,7 @@ class ProfileController extends AbstractController
                 $newFileName = $this->imageUploader->move($avatar, 'avatar');
             }
 
-            if ($user->getAvatar() !== null) {
+            if (null !== $user->getAvatar()) {
                 $this->imageUploader->remove($user->getAvatar(), 'avatar');
             }
 
