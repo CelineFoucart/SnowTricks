@@ -11,8 +11,18 @@ use Symfony\Component\Mime\Address;
 
 class EmailVerifier
 {
+    /**
+     * @var integer the life time of a token
+     */
     private int $lifetime = 3600;
 
+    /**
+     * @param MailerInterface $mailer
+     * @param EntityManagerInterface $entityManager
+     * @param string $contactEmail
+     * @param string $contactName
+     * @param string $secret
+     */
     public function __construct(
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager,

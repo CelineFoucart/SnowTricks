@@ -24,6 +24,14 @@ class VideoRepository extends ServiceEntityRepository
         parent::__construct($registry, Video::class);
     }
 
+    /**
+     * Persist an entity.
+     * 
+     * @param Video $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function save(Video $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -33,6 +41,14 @@ class VideoRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Removes an entity.
+     * 
+     * @param Video $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function remove(Video $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

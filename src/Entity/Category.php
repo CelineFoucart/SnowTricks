@@ -13,11 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('name')]
 class Category
 {
+    /** @var int|null the category id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /** the category name */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -27,7 +29,8 @@ class Category
         maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $name = null;
-
+    
+    /** the tricks of this category */
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'categories')]
     private Collection $tricks;
 

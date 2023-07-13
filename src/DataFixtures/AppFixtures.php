@@ -24,6 +24,13 @@ class AppFixtures extends Fixture
 {
     private const BANNER_IMAGE = '/public/assets/2e16d0bac75.jpg';
 
+    /**
+     * @param UserPasswordHasherInterface $hasher
+     * @param SluggerInterface $slugger
+     * @param ImageUploader $imageUploader
+     * @param Filesystem $filesystem
+     * @param string $projectDir
+     */
     public function __construct(
         private UserPasswordHasherInterface $hasher,
         private SluggerInterface $slugger,

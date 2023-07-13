@@ -9,11 +9,21 @@ final class TrickMediaFactory
 {
     private Trick $trick;
 
+    /**
+     * @param ImageUploader $imageUploader
+     */
     public function __construct(private ImageUploader $imageUploader)
     {
         
     }
 
+    /**
+     * Defines the featured image if the user doesn't ask for its removing.
+     * 
+     * @param FormInterface $form
+     * 
+     * @return self
+     */
     public function setFeaturedImageFile(FormInterface $form): self
     {
         $featuredImageFile = $form->get('featuredImageFile')->getData();
@@ -40,6 +50,13 @@ final class TrickMediaFactory
         return $this;
     }
 
+    /**
+     * Defines the image gallery of a trick.
+     * 
+     * @param FormInterface $form
+     * 
+     * @return self
+     */
     public function setGallery(FormInterface $form): self
     {
         $images = $form->get('images')->getData();
@@ -57,6 +74,13 @@ final class TrickMediaFactory
         return $this;
     }
 
+    /**
+     * Defines the video gallery of a trick.
+     * 
+     * @param FormInterface $form
+     * 
+     * @return self
+     */
     public function setVideoGallery(FormInterface $form): self
     {
         $videos = $form->get('videos')->getData();
@@ -75,7 +99,6 @@ final class TrickMediaFactory
         return $this->trick;
     }
 
-
     /**
      * Set the value of trick
      *
@@ -90,5 +113,3 @@ final class TrickMediaFactory
         return $this;
     }
 }
-
-

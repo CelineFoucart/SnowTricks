@@ -11,6 +11,9 @@ class UserChecker implements UserCheckerInterface
 {
     private string $message = 'Vous devez confirmer votre compte pour pouvoir vous connecter.';
 
+    /**
+     * {@inheritDoc}
+     */
     public function checkPreAuth(UserInterface $user): void
     {
         if (!$user instanceof User) {
@@ -23,6 +26,9 @@ class UserChecker implements UserCheckerInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function checkPostAuth(UserInterface $user): void
     {
         if (!$user instanceof User) {

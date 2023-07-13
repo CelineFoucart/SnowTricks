@@ -9,17 +9,21 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Video
 {
+    /** the video id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /** the video url */
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    /** the video creation date */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /** the video trick */
     #[ORM\ManyToOne(inversedBy: 'videos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;

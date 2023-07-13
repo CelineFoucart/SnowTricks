@@ -27,6 +27,14 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * Persists an entity.
+     * 
+     * @param Comment $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function save(Comment $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -36,6 +44,14 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Removes an entity.
+     * 
+     * @param Comment $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function remove(Comment $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -46,7 +62,9 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Comment[] Returns an array of Comment objects
+     * Returns an array of Comment objects.
+     * 
+     * @return Comment[] 
      */
     public function findPaginated(Trick $trick, int $offset = 0, ?int $limit = null): array
     {
@@ -65,6 +83,12 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Counts the comments of a trick.
+     * @param Trick $trick
+     * 
+     * @return int
+     */
     public function countCommentByTrick(Trick $trick): int
     {
         $results = $this->createQueryBuilder('c')

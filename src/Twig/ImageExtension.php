@@ -7,11 +7,18 @@ use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
+    /**
+     * @param string $imageDirectory
+     * @param string $avatarDirectory
+     */
     public function __construct(
         private string $imageDirectory, private string $avatarDirectory
     ) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getFunctions()
     {
         return [

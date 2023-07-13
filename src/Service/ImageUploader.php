@@ -13,6 +13,11 @@ class ImageUploader
 {
     private ?string $error = null;
 
+    /**
+     * @param SluggerInterface $slugger
+     * @param string $imageDirectory
+     * @param string $avatarDirectory
+     */
     public function __construct(
         private SluggerInterface $slugger,
         private string $imageDirectory,

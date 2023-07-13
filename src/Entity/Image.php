@@ -12,11 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
+    /** the image id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /** the image file name */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Ce champ ne peut être vide')]
     #[Assert\Length(
@@ -27,6 +29,7 @@ class Image
     )]
     private ?string $filename = null;
 
+    /** the legend of the image */
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -37,13 +40,16 @@ class Image
     )]
     private ?string $legend = null;
 
+    /** the upload date */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /** the trick image */
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
+    /** the the uploaded file to move when the entity is created */
     private ?UploadedFile $uploadedFile = null;
 
     public function getId(): ?int

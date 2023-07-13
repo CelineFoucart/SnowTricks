@@ -11,11 +11,17 @@ use Doctrine\ORM\Events;
 
 class ImageSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @param ImageUploader $imageUploader
+     */
     public function __construct(
         private ImageUploader $imageUploader
     ) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getSubscribedEvents(): array
     {
         return [
@@ -23,6 +29,13 @@ class ImageSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Deletes a image file of a removed entity Image.
+     * 
+     * @param PostRemoveEventArgs $args
+     * 
+     * @return void
+     */
     public function postRemove(PostRemoveEventArgs $args): void
     {
         $entity = $args->getObject();

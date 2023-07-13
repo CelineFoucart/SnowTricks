@@ -28,6 +28,23 @@ class TrickRepository extends ServiceEntityRepository
         $this->perPage = $perPageTrick;
     }
 
+    /**
+     * Persists an entity.
+     * 
+     * @param Trick $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
+
+    /**
+     * Persists an entity.
+     * 
+     * @param Trick $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function save(Trick $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -37,6 +54,14 @@ class TrickRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Removes an entity.
+     * 
+     * @param Trick $entity
+     * @param bool $flush
+     * 
+     * @return void
+     */
     public function remove(Trick $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -47,7 +72,9 @@ class TrickRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Trick[] Returns an array of Trick objects
+     * Returns an array of Trick objects.
+     * 
+     * @return Trick[]
      */
     public function findPaginated(int $offset = 0, ?int $limit = null): array
     {
@@ -64,6 +91,13 @@ class TrickRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Finds a trick by his slug.
+     * 
+     * @param string $slug
+     * 
+     * @return Trick|null
+     */
     public function findOneBySlug(string $slug): ?Trick
     {
         return $this->createQueryBuilder('t')

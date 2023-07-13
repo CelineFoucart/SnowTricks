@@ -13,6 +13,13 @@ use Symfony\Component\Mime\Address;
 
 final class ResetPasswordHelper
 {
+    /**
+     * @param ResetPasswordRepository $resetPasswordRepository
+     * @param MailerInterface $mailer
+     * @param string $contactEmail
+     * @param string $contactName
+     * @param string $secret
+     */
     public function __construct(
         private ResetPasswordRepository $resetPasswordRepository,
         private MailerInterface $mailer,
@@ -22,7 +29,14 @@ final class ResetPasswordHelper
     ) {
     }
 
-    public function processSendingEmail(?User $user)
+    /**
+     * Sends the reset password email.
+     * 
+     * @param User|null $user
+     * 
+     * @return bool
+     */
+    public function processSendingEmail(?User $user): bool
     {
         if (!$user) {
             return false;
@@ -55,6 +69,13 @@ final class ResetPasswordHelper
         return true;
     }
 
+    /**
+     * Returns the user.
+     * 
+     * @param Request $request
+     * 
+     * @return User|null
+     */
     public function getUserFromResetToken(Request $request): ?User
     {
         $resetPassword = $this->retrieveResetPassword($request);
@@ -82,6 +103,13 @@ final class ResetPasswordHelper
         return $resetPassword->getUser();
     }
 
+    /**
+     * Removes a reset password request from the database.
+     * 
+     * @param Request $request
+     * 
+     * @return void
+     */
     public function removeResetPassword(Request $request): void
     {
         $resetPassword = $this->retrieveResetPassword($request);
@@ -91,13 +119,27 @@ final class ResetPasswordHelper
         }
     }
 
-    private function generateToken(User $user)
+    /**
+     * Generates a hashed token.
+     * 
+     * @param User $user
+     * 
+     * @return string
+     */
+    private function generateToken(User $user): string
     {
         $encodedData = json_encode([$user->getId(), $user->getEmail()]);
 
         return base64_encode(hash_hmac('sha256', $encodedData, $this->secret, true));
     }
 
+    /**
+     * Returns the reset password.
+     * 
+     * @param Request $request
+     * 
+     * @return ResetPassword|null
+     */
     private function retrieveResetPassword(Request $request): ?ResetPassword
     {
         $token = $request->get('token');

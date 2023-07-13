@@ -13,6 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api')]
 class ApiController extends AbstractController
 {
+    /**
+     * Returns a list of paginated tricks.
+     * 
+     * @param int $perPageTrick
+     * @param string $offset
+     * @param TrickRepository $trickRepository
+     * 
+     * @return JsonResponse
+     */
     #[Route('/trick/{offset}', name: 'api_trick_index')]
     public function trickIndex(int $perPageTrick, string $offset, TrickRepository $trickRepository): JsonResponse
     {
@@ -27,6 +36,16 @@ class ApiController extends AbstractController
         );
     }
 
+    /**
+     * Returns a list of paginated comments.
+     * 
+     * @param int $perPageComment
+     * @param string $offset
+     * @param Trick $trick
+     * @param CommentRepository $commentRepository
+     * 
+     * @return JsonResponse
+     */
     #[Route('/comment/{id}/{offset}', name: 'api_comment_index')]
     public function commentIndex(int $perPageComment, string $offset, Trick $trick, CommentRepository $commentRepository): JsonResponse
     {
