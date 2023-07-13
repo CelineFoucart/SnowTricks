@@ -14,6 +14,9 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class ProfileType extends AbstractType
 {
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -53,6 +56,9 @@ class ProfileType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

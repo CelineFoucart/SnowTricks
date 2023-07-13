@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(['name'], message: 'Cette valeur est déjà utilisée')]
 class Trick
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -51,6 +52,9 @@ class Trick
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     private ?User $author = null;
 
+    /**
+     * @var string|null The featured image file name
+     */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $featuredImage = null;
 

@@ -18,6 +18,10 @@ class TrickRepository extends ServiceEntityRepository
 {
     private int $perPage = 12;
 
+    /**
+     * @param ManagerRegistry $registry
+     * @param string          $perPageTrick   the number of tricks per page, defined in the .env
+     */
     public function __construct(ManagerRegistry $registry, string $perPageTrick)
     {
         parent::__construct($registry, Trick::class);

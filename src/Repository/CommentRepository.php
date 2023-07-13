@@ -19,6 +19,9 @@ class CommentRepository extends ServiceEntityRepository
 {
     public const PER_PAGE = 15;
 
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);

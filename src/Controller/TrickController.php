@@ -10,6 +10,7 @@ use App\Form\TrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\ImageUploader;
+use App\Service\TrickMediaFactory;
 use DateTime;
 use DateTimeImmutable;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -115,43 +116,13 @@ class TrickController extends AbstractController
 
     private function setTrickAfterSubmit(Trick $trick, FormInterface $form): Trick
     {
-        $featuredImageFile = $form->get('featuredImageFile')->getData();
-        $deleteFeaturedImage = (bool) $form->get('deleteFeaturedImage')->getData();
-
-        if ($featuredImageFile && !$deleteFeaturedImage) {
-            $newFileName = $this->imageUploader->move($featuredImageFile);
-
-            if (null !== $trick->getFeaturedImage()) {
-                $this->imageUploader->remove($trick->getFeaturedImage());
-            }
-
-            $trick->setFeaturedImage($newFileName);
-        }
-
-        if ($deleteFeaturedImage) {
-            $status = $this->imageUploader->remove($trick->getFeaturedImage());
-
-            if ($status) {
-                $trick->setFeaturedImage(null);
-            }
-        }
-
-        $images = $form->get('images')->getData();
-        foreach ($images as $image) {
-            if (null === $image->getId()) {
-                $filename = $this->imageUploader->move($image->getUploadedFile());
-                $image->setFilename($filename)->setCreatedAt(new DateTimeImmutable())->setTrick($trick);
-            } elseif (null !== $image->getUploadedFile()) {
-                $this->imageUploader->remove($image->getFilename());
-                $filename = $this->imageUploader->move($image->getUploadedFile());
-                $image->setFilename($filename);
-            }
-        }
-
-        $videos = $form->get('videos')->getData();
-        foreach ($videos as $video) {
-            $video->setTrick($trick);
-        }
+        $trick = (new TrickMediaFactory($this->imageUploader))
+            ->setTrick($trick)
+            ->setFeaturedImageFile($form)
+            ->setGallery($form)
+            ->setVideoGallery($form)
+            ->getTrick()
+        ;
 
         $slug = $this->slugger->slug(strtolower($trick->getName()));
         $trick->setSlug($slug)->setUpdatedAt(new DateTime());
