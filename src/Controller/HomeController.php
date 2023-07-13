@@ -14,8 +14,6 @@ class HomeController extends AbstractController
      * 
      * @param TrickRepository $trickRepository
      * @param string $perPageTrick
-     * 
-     * @return Response
      */
     #[Route('/', name: 'app_home')]
     public function index(TrickRepository $trickRepository, string $perPageTrick): Response

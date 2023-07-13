@@ -16,9 +16,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ResetPasswordRepository extends ServiceEntityRepository
 {
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ResetPassword::class);
@@ -26,11 +23,6 @@ class ResetPasswordRepository extends ServiceEntityRepository
 
     /**
      * Persists an entity.
-     * 
-     * @param ResetPassword $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function save(ResetPassword $entity, bool $flush = false): void
     {
@@ -43,11 +35,6 @@ class ResetPasswordRepository extends ServiceEntityRepository
 
     /**
      * Removes an entity.
-     * 
-     * @param ResetPassword $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function remove(ResetPassword $entity, bool $flush = false): void
     {

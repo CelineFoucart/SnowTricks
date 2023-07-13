@@ -30,8 +30,6 @@ class ResetPasswordController extends AbstractController
      * The page where the user can request to reset his password.
      * 
      * @param Request $request
-     *
-     * @return Response
      */
     #[Route('/', name: 'app_request_password')]
     public function request(Request $request): Response
@@ -53,8 +51,6 @@ class ResetPasswordController extends AbstractController
 
     /**
      * The confirmation page.
-     *
-     * @return Response
      */
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
@@ -67,7 +63,6 @@ class ResetPasswordController extends AbstractController
      *
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasher
-     * @return Response
      */
     #[Route('/reset', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response

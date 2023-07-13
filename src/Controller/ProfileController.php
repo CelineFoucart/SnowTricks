@@ -28,8 +28,6 @@ class ProfileController extends AbstractController
      * @param UserRepository $userRepository
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasher
-     * 
-     * @return Response
      */
     #[Route('/profile', name: 'app_profile')]
     public function profile(UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response

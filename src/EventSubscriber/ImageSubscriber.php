@@ -33,8 +33,6 @@ class ImageSubscriber implements EventSubscriberInterface
      * Deletes a image file of a removed entity Image.
      * 
      * @param PostRemoveEventArgs $args
-     * 
-     * @return void
      */
     public function postRemove(PostRemoveEventArgs $args): void
     {

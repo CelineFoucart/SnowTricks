@@ -19,9 +19,6 @@ class CommentRepository extends ServiceEntityRepository
 {
     public const PER_PAGE = 15;
 
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
@@ -29,11 +26,6 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Persists an entity.
-     * 
-     * @param Comment $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function save(Comment $entity, bool $flush = false): void
     {
@@ -46,11 +38,6 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Removes an entity.
-     * 
-     * @param Comment $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function remove(Comment $entity, bool $flush = false): void
     {
@@ -63,8 +50,8 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Returns an array of Comment objects.
-     * 
-     * @return Comment[] 
+     *
+     * @return Comment[]
      */
     public function findPaginated(Trick $trick, int $offset = 0, ?int $limit = null): array
     {
@@ -85,9 +72,6 @@ class CommentRepository extends ServiceEntityRepository
 
     /**
      * Counts the comments of a trick.
-     * @param Trick $trick
-     * 
-     * @return int
      */
     public function countCommentByTrick(Trick $trick): int
     {

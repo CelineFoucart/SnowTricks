@@ -107,8 +107,6 @@ class Image
 
     /**
      * Get the value of uploadedFile.
-     *
-     * @return ?File
      */
     public function getUploadedFile(): ?File
     {

@@ -14,15 +14,10 @@ final class TrickMediaFactory
      */
     public function __construct(private ImageUploader $imageUploader)
     {
-        
     }
 
     /**
      * Defines the featured image if the user doesn't ask for its removing.
-     * 
-     * @param FormInterface $form
-     * 
-     * @return self
      */
     public function setFeaturedImageFile(FormInterface $form): self
     {
@@ -52,10 +47,6 @@ final class TrickMediaFactory
 
     /**
      * Defines the image gallery of a trick.
-     * 
-     * @param FormInterface $form
-     * 
-     * @return self
      */
     public function setGallery(FormInterface $form): self
     {
@@ -76,10 +67,6 @@ final class TrickMediaFactory
 
     /**
      * Defines the video gallery of a trick.
-     * 
-     * @param FormInterface $form
-     * 
-     * @return self
      */
     public function setVideoGallery(FormInterface $form): self
     {
@@ -92,7 +79,7 @@ final class TrickMediaFactory
     }
 
     /**
-     * Get the value of trick
+     * Get the value of trick.
      */
     public function getTrick(): ?Trick
     {
@@ -100,11 +87,7 @@ final class TrickMediaFactory
     }
 
     /**
-     * Set the value of trick
-     *
-     * @param Trick $trick
-     *
-     * @return self
+     * Set the value of trick.
      */
     public function setTrick(Trick $trick): self
     {

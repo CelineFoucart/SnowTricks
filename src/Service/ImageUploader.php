@@ -76,8 +76,6 @@ class ImageUploader
 
     /**
      * Get the value of error.
-     *
-     * @return ?string
      */
     public function getError(): ?string
     {

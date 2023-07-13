@@ -19,8 +19,7 @@ class TrickRepository extends ServiceEntityRepository
     private int $perPage = 12;
 
     /**
-     * @param ManagerRegistry $registry
-     * @param string          $perPageTrick   the number of tricks per page, defined in the .env
+     * @param string $perPageTrick the number of tricks per page, defined in the .env
      */
     public function __construct(ManagerRegistry $registry, string $perPageTrick)
     {
@@ -30,20 +29,6 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * Persists an entity.
-     * 
-     * @param Trick $entity
-     * @param bool $flush
-     * 
-     * @return void
-     */
-
-    /**
-     * Persists an entity.
-     * 
-     * @param Trick $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function save(Trick $entity, bool $flush = false): void
     {
@@ -56,11 +41,6 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * Removes an entity.
-     * 
-     * @param Trick $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function remove(Trick $entity, bool $flush = false): void
     {
@@ -73,7 +53,7 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * Returns an array of Trick objects.
-     * 
+     *
      * @return Trick[]
      */
     public function findPaginated(int $offset = 0, ?int $limit = null): array
@@ -93,10 +73,6 @@ class TrickRepository extends ServiceEntityRepository
 
     /**
      * Finds a trick by his slug.
-     * 
-     * @param string $slug
-     * 
-     * @return Trick|null
      */
     public function findOneBySlug(string $slug): ?Trick
     {

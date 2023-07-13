@@ -15,10 +15,10 @@ final class ResetPasswordHelper
 {
     /**
      * @param ResetPasswordRepository $resetPasswordRepository
-     * @param MailerInterface $mailer
-     * @param string $contactEmail
-     * @param string $contactName
-     * @param string $secret
+     * @param MailerInterface         $mailer
+     * @param string                  $contactEmail
+     * @param string                  $contactName
+     * @param string                  $secret
      */
     public function __construct(
         private ResetPasswordRepository $resetPasswordRepository,
@@ -31,10 +31,6 @@ final class ResetPasswordHelper
 
     /**
      * Sends the reset password email.
-     * 
-     * @param User|null $user
-     * 
-     * @return bool
      */
     public function processSendingEmail(?User $user): bool
     {
@@ -71,10 +67,6 @@ final class ResetPasswordHelper
 
     /**
      * Returns the user.
-     * 
-     * @param Request $request
-     * 
-     * @return User|null
      */
     public function getUserFromResetToken(Request $request): ?User
     {
@@ -105,10 +97,6 @@ final class ResetPasswordHelper
 
     /**
      * Removes a reset password request from the database.
-     * 
-     * @param Request $request
-     * 
-     * @return void
      */
     public function removeResetPassword(Request $request): void
     {
@@ -121,10 +109,6 @@ final class ResetPasswordHelper
 
     /**
      * Generates a hashed token.
-     * 
-     * @param User $user
-     * 
-     * @return string
      */
     private function generateToken(User $user): string
     {
@@ -135,10 +119,6 @@ final class ResetPasswordHelper
 
     /**
      * Returns the reset password.
-     * 
-     * @param Request $request
-     * 
-     * @return ResetPassword|null
      */
     private function retrieveResetPassword(Request $request): ?ResetPassword
     {

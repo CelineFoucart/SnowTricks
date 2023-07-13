@@ -19,9 +19,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -29,11 +26,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Persists an entity.
-     * 
-     * @param User $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function save(User $entity, bool $flush = false): void
     {
@@ -46,11 +38,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Removes an entity.
-     * 
-     * @param User $entity
-     * @param bool $flush
-     * 
-     * @return void
      */
     public function remove(User $entity, bool $flush = false): void
     {
@@ -77,10 +64,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Finds user stats: number of tricks and comments.
-     * 
-     * @param int $userId
-     * 
-     * @return array
      */
     public function findUserStats(int $userId): array
     {

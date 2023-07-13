@@ -41,8 +41,6 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param CommentRepository $commentRepository
      * @param string $perPageComment
-     * 
-     * @return Response
      */
     #[Route('/show/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
     public function show(Trick $trick, Request $request, CommentRepository $commentRepository, string $perPageComment): Response
@@ -79,8 +77,6 @@ class TrickController extends AbstractController
      * 
      * @param Request $request
      * @param TrickRepository $trickRepository
-     * 
-     * @return Response
      */
     #[Route('/new', name: 'app_trick_new', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER')")]
@@ -110,8 +106,6 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param Trick $trick
      * @param TrickRepository $trickRepository
-     * 
-     * @return Response
      */
     #[Route('/edit/{id}', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     #[Security("is_granted('ROLE_USER')")]
@@ -140,8 +134,6 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param Trick $trick
      * @param TrickRepository $trickRepository
-     * 
-     * @return Response
      */
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     #[Security("is_granted('ROLE_USER')")]
@@ -159,8 +151,6 @@ class TrickController extends AbstractController
      * 
      * @param Trick $trick
      * @param FormInterface $form
-     * 
-     * @return Trick
      */
     private function setTrickAfterSubmit(Trick $trick, FormInterface $form): Trick
     {
