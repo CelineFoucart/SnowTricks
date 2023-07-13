@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank]
     private ?string $username = null;
 
-    /** the user roles, for example ROLE_USER or ROLE_ADMIN */
+    /** @var array the user roles, for example ROLE_USER or ROLE_ADMIN */
     #[ORM\Column]
     private array $roles = [];
 
@@ -122,7 +122,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -156,7 +155,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -228,7 +226,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeResetPassword(ResetPassword $resetPassword): self
     {
         if ($this->resetPasswords->removeElement($resetPassword)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed)
             if ($resetPassword->getUser() === $this) {
                 $resetPassword->setUser(null);
             }

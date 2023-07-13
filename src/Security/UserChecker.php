@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
+    /**
+     * @var string The message to return in case of error
+     */
     private string $message = 'Vous devez confirmer votre compte pour pouvoir vous connecter.';
 
     /**
@@ -21,7 +24,7 @@ class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->getIsActive()) {
-            // the message passed to this exception is meant to be displayed to the user
+            // The message passed to this exception is meant to be displayed to the user
             throw new CustomUserMessageAccountStatusException($this->message);
         }
     }

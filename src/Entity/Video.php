@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Video
 {
-    /** @var int|null the video id */
+    /** @var integer|null the video id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

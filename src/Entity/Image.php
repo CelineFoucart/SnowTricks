@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
-    /** @var int|null the image id */
+    /** @var integer|null the image id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

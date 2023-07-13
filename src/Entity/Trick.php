@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Trick
 {
 
-    /** @var int|null the trick id */
+    /** @var integer|null the trick id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -51,7 +51,7 @@ class Trick
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /** the trick last update date */
+    /** @var DateTimeInterface|null the trick last update date */
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
@@ -59,7 +59,7 @@ class Trick
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     private ?User $author = null;
 
-    /** The featured image file name */
+    /** @var string|null The featured image file name */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $featuredImage = null;
 
@@ -227,7 +227,6 @@ class Trick
     public function removeVideo(Video $video): self
     {
         if ($this->videos->removeElement($video)) {
-            // set the owning side to null (unless already changed)
             if ($video->getTrick() === $this) {
                 $video->setTrick(null);
             }

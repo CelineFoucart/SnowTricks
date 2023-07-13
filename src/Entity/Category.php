@@ -29,7 +29,7 @@ class Category
         maxMessage: 'Ce champ doit faire moins de 255 caractères'
     )]
     private ?string $name = null;
-    
+
     /** @var Collection the tricks of this category */
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'categories')]
     private Collection $tricks;

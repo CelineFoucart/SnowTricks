@@ -24,13 +24,6 @@ class AppFixtures extends Fixture
 {
     private const BANNER_IMAGE = '/public/assets/2e16d0bac75.jpg';
 
-    /**
-     * @param UserPasswordHasherInterface $hasher
-     * @param SluggerInterface $slugger
-     * @param ImageUploader $imageUploader
-     * @param Filesystem $filesystem
-     * @param string $projectDir
-     */
     public function __construct(
         private UserPasswordHasherInterface $hasher,
         private SluggerInterface $slugger,
@@ -50,7 +43,9 @@ class AppFixtures extends Fixture
         $tricks = $this->getTricksData();
 
         foreach ($tricks as $group => $elements) {
-            /** @var Category */
+            /** 
+             * @var Category 
+             */
             $category = $groups[$group];
 
             foreach ($elements as $name => $description) {
@@ -159,5 +154,4 @@ class AppFixtures extends Fixture
 
         return null;
     }
-    
 }

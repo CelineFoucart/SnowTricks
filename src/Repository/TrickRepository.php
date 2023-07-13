@@ -16,6 +16,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrickRepository extends ServiceEntityRepository
 {
+    /**
+     * @var int Number of items per page, by default 12
+     */
     private int $perPage = 12;
 
     /**

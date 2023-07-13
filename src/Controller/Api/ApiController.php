@@ -15,9 +15,9 @@ class ApiController extends AbstractController
 {
     /**
      * Returns a list of paginated tricks.
-     * 
-     * @param int $perPageTrick
-     * @param string $offset
+     *
+     * @param int             $perPageTrick
+     * @param string          $offset
      * @param TrickRepository $trickRepository
      */
     #[Route('/trick/{offset}', name: 'api_trick_index')]
@@ -28,7 +28,7 @@ class ApiController extends AbstractController
         $total = $trickRepository->count([]);
 
         return $this->json(
-            ['offset' => $perPageTrick + $offset, 'total' => $total, 'html' => $html],
+            ['offset' => ($perPageTrick + $offset), 'total' => $total, 'html' => $html],
             Response::HTTP_OK,
             []
         );
@@ -36,10 +36,10 @@ class ApiController extends AbstractController
 
     /**
      * Returns a list of paginated comments.
-     * 
-     * @param int $perPageComment
-     * @param string $offset
-     * @param Trick $trick
+     *
+     * @param int               $perPageComment
+     * @param string            $offset
+     * @param Trick             $trick
      * @param CommentRepository $commentRepository
      */
     #[Route('/comment/{id}/{offset}', name: 'api_comment_index')]

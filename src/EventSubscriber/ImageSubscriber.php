@@ -11,9 +11,6 @@ use Doctrine\ORM\Events;
 
 class ImageSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @param ImageUploader $imageUploader
-     */
     public function __construct(
         private ImageUploader $imageUploader
     ) {

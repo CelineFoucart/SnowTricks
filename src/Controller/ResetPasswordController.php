@@ -15,9 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/reset-password')]
 class ResetPasswordController extends AbstractController
 {
-    
     /**
-     * @param UserRepository $userRepository
+     * @param UserRepository      $userRepository
      * @param ResetPasswordHelper $resetPasswordHelper
      */
     public function __construct(
@@ -28,7 +27,7 @@ class ResetPasswordController extends AbstractController
 
     /**
      * The page where the user can request to reset his password.
-     * 
+     *
      * @param Request $request
      */
     #[Route('/', name: 'app_request_password')]
@@ -61,7 +60,7 @@ class ResetPasswordController extends AbstractController
     /**
      * The page where the user create a new password.
      *
-     * @param Request $request
+     * @param Request                     $request
      * @param UserPasswordHasherInterface $userPasswordHasher
      */
     #[Route('/reset', name: 'app_reset_password')]

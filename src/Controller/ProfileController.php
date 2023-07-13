@@ -14,9 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
-    /**
-     * @param ImageUploader $imageUploader
-     */
     public function __construct(
         private ImageUploader $imageUploader
     ) {
@@ -24,15 +21,17 @@ class ProfileController extends AbstractController
 
     /**
      * Returns the profile page where the user can update his informations.
-     * 
-     * @param UserRepository $userRepository
-     * @param Request $request
+     *
+     * @param UserRepository              $userRepository
+     * @param Request                     $request
      * @param UserPasswordHasherInterface $userPasswordHasher
      */
     #[Route('/profile', name: 'app_profile')]
     public function profile(UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        /** @var User */
+        /**
+         * @var User
+         */
         $user = $this->getUser();
 
         if (null === $user) {

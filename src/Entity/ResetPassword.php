@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ResetPasswordRepository::class)]
 class ResetPassword
 {
-    /** @var int|null the reset password id */
+    /** @var integer|null the reset password id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

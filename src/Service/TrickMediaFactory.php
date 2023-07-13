@@ -8,10 +8,7 @@ use Symfony\Component\Form\FormInterface;
 final class TrickMediaFactory
 {
     private Trick $trick;
-
-    /**
-     * @param ImageUploader $imageUploader
-     */
+    
     public function __construct(private ImageUploader $imageUploader)
     {
     }

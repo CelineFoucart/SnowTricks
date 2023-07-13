@@ -11,13 +11,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ImageUploader
 {
-    private ?string $error = null;
-
     /**
-     * @param SluggerInterface $slugger
-     * @param string $imageDirectory
-     * @param string $avatarDirectory
+     * @var string|null the error message
      */
+    private ?string $error = null;
+    
     public function __construct(
         private SluggerInterface $slugger,
         private string $imageDirectory,

@@ -15,14 +15,7 @@ class EmailVerifier
      * @var integer the life time of a token
      */
     private int $lifetime = 3600;
-
-    /**
-     * @param MailerInterface $mailer
-     * @param EntityManagerInterface $entityManager
-     * @param string $contactEmail
-     * @param string $contactName
-     * @param string $secret
-     */
+    
     public function __construct(
         private MailerInterface $mailer,
         private EntityManagerInterface $entityManager,
@@ -87,7 +80,7 @@ class EmailVerifier
     private function generateToken(User $user): array
     {
         $generatedAt = time();
-        $expiredAtTimestamp = $generatedAt + $this->lifetime;
+        $expiredAtTimestamp = ($generatedAt + $this->lifetime);
         $encodedData = json_encode([$user->getId(), $user->getEmail()]);
         $token = base64_encode(hash_hmac('sha256', $encodedData, $this->secret, true));
 

@@ -13,13 +13,6 @@ use Symfony\Component\Mime\Address;
 
 final class ResetPasswordHelper
 {
-    /**
-     * @param ResetPasswordRepository $resetPasswordRepository
-     * @param MailerInterface         $mailer
-     * @param string                  $contactEmail
-     * @param string                  $contactName
-     * @param string                  $secret
-     */
     public function __construct(
         private ResetPasswordRepository $resetPasswordRepository,
         private MailerInterface $mailer,
