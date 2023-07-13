@@ -8,25 +8,25 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ResetPasswordRepository::class)]
 class ResetPassword
 {
-    /** the reset password id */
+    /** @var int|null the reset password id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /** the reset password hashed token */
+    /** @var string|null the reset password hashed token */
     #[ORM\Column(length: 255)]
     private ?string $hashedToken = null;
 
-    /** the reset password request date */
+    /** @var DateTimeImmutable|null the reset password request date */
     #[ORM\Column]
     private ?\DateTimeImmutable $requestedAt = null;
 
-    /** the reset password expiration date */
+    /** @var DateTimeImmutable|null the reset password expiration date */
     #[ORM\Column]
     private ?\DateTimeImmutable $expiredAt = null;
 
-    /** the reset password user */
+    /** @var User|null the reset password user */
     #[ORM\ManyToOne(inversedBy: 'resetPasswords')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;

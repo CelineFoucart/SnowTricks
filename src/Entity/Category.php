@@ -19,7 +19,7 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    /** the category name */
+    /** @var string|null the category name */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -30,7 +30,7 @@ class Category
     )]
     private ?string $name = null;
     
-    /** the tricks of this category */
+    /** @var Collection the tricks of this category */
     #[ORM\ManyToMany(targetEntity: Trick::class, mappedBy: 'categories')]
     private Collection $tricks;
 

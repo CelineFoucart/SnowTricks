@@ -16,13 +16,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['username', 'email'], message: 'Un compte utilise déjà cette valeur')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /** the user id */
+    /** @var int|null the user id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /** the user name */
+    /** @var string|null the user name */
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(
         min: 1,
@@ -38,12 +38,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var string|null The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
 
-    /** the user email */
+    /** @var string|null the user email */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Email(message: "Ce champ n'est pas un email valide")]
@@ -55,27 +55,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $email = null;
 
-    /** the user cration date */
+    /** @var DateTimeImmutable|null the user cration date */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /** the user avatar file name */
+    /** @var string|null the user avatar file name */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    /** the user active status */
+    /** @var bool|null the user active status */
     #[ORM\Column]
     private ?bool $isActive = null;
 
-    /** the user reset passwords */
+    /** @var Collection the user reset passwords */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ResetPassword::class, orphanRemoval: true)]
     private Collection $resetPasswords;
 
-    /** the tricks the user has created */
+    /** @var Collection the tricks the user has created */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Trick::class)]
     private Collection $tricks;
 
-    /** the user comments */
+    /** @var Collection the user comments */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class)]
     private Collection $comments;
 

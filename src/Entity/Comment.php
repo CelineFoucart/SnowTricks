@@ -10,13 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
-    /** the comment id */
+    /** @var int|null the comment id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /** the comment body */
+    /** @var string|null the comment body */
     #[ORM\Column(length: 10000)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -27,19 +27,19 @@ class Comment
     )]
     private ?string $content = null;
 
-    /** the date of the comment publication */
+    /** @var DateTimeImmutable|null the date of the comment publication */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
     
-    /** the date of the last update */
+    /** @var DateTimeInterface|null the date of the last update */
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
     
-    /** the comment author */
+    /** @var User|null the comment author */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?User $author = null;
 
-    /** the trick of the comment */
+    /** @var Trick|null the trick of the comment */
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;

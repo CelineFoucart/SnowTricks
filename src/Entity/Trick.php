@@ -15,13 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Trick
 {
 
-    /** the trick id */
+    /** @var int|null the trick id */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /** the trick name */
+    /** @var string|null the trick name */
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -32,11 +32,11 @@ class Trick
     )]
     private ?string $name = null;
 
-    /** the trick slug */
+    /** @var string|null the trick slug */
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    /** the trick description */
+    /** @var string|null the trick description */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     #[Assert\Length(
@@ -47,7 +47,7 @@ class Trick
     )]
     private ?string $description = null;
 
-    /** the trick creation date */
+    /** @var DateTimeImmutable|null the trick creation date */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -55,7 +55,7 @@ class Trick
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    /** the trick author */
+    /** @var User|null the trick author */
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     private ?User $author = null;
 
@@ -63,19 +63,19 @@ class Trick
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $featuredImage = null;
 
-    /** the trick image gallery */
+    /** @var Collection the trick image gallery */
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $images;
 
-    /** the trick video gallery */
+    /** @var Collection the trick video gallery */
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $videos;
 
-    /** the trick categories */
+    /** @var Collection the trick categories */
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tricks')]
     private Collection $categories;
 
-    /** the trick comments */
+    /** @var Collection the trick comments */
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
