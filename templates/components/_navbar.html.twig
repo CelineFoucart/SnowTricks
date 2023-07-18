@@ -16,13 +16,6 @@
                     <span class="md-only">Tricks</span>
                 </a>
             </li>
-            {% if is_granted('ROLE_ADMIN')  %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-cogs fa-fw"></i> <span class="md-only">Administration</span>
-                    </a>
-                </li>
-            {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_profile') }}">
