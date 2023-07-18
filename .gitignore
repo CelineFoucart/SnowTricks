@@ -9,4 +9,5 @@
 /vendor/
 /public/images/
 /public/avatars/
+/composer.phar
 ###< symfony/framework-bundle ###
