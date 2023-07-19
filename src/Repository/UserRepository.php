@@ -69,8 +69,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->select('COUNT(DISTINCT t.id) AS tricks', 'COUNT(DISTINCT c.id) AS comments')
-            ->join('u.tricks', 't')
-            ->join('u.comments', 'c')
+            ->leftJoin('u.tricks', 't')
+            ->leftJoin('u.comments', 'c')
             ->where('u.id = :id')
             ->setParameter('id', $userId)
             ->getQuery()
