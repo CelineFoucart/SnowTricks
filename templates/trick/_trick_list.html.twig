@@ -7,16 +7,18 @@
         {% else %}
             {% set background = asset('assets/2e16d0bac756.jpg') %}
         {% endif %}
-        <div class="card card-trick">
-            <img src="{{ background }}" class="miniature card-img-top" alt="image illustrant un trick {{ trick.name }}">
+        <div class="card card-trick shadow border-0">
+            <img src="{{ background }}" class="miniature card-img-top w-100" alt="image illustrant un trick {{ trick.name }}">
             <div class="card-body">
                 <div class="row">
                     <div class="col-9">
-                        <h5 class="card-title h5 mb-0">
-                            <a href="{{ path('app_trick_show', {slug: trick.slug }) }}">{{ trick.name }}</a>
+                        <h5 class="card-title mb-0">
+                            <a href="{{ path('app_trick_show', {slug: trick.slug }) }}" class="btn btn-outline-primary fw-bold">
+                                {{ trick.name }}
+                            </a>
                         </h5>
                     </div>
-                    <div class="col-3 d-flex justify-content-between">
+                    <div class="col-3 d-flex justify-content-between align-items-center">
                         {% if is_granted('ROLE_USER') %}
                             <a href="{{ path('app_trick_edit', {'id': trick.id}) }}" class="text-decoration-none text-success mb-0 h5">
                                 <i class="fas fa-pencil-alt"></i>

@@ -29,13 +29,15 @@
         {% set totalImages = trick.images|length + trick.videos|length %}
         <div class="mt-4 gallery {{ totalImages > 5 ? 'public-gallery' : '' }}">
             {% for image in trick.images %}
-                <a href="{{ trick_image(image.filename) }}" class="text-decoration-none">
+                <a href="{{ trick_image(image.filename) }}" class="text-decoration-none" data-fslightbox="first-lightbox">
                     <img src="{{ trick_image(image.filename) }}" alt="{{ image.legend }}" class="img-thumbnail">
                 </a>
             {% endfor %}
             {% for video in trick.videos %}
                 <div class="img-thumbnail">
-                    {{ video_iframe(video.url) }}
+                    <a href="{{ video.url }}" data-fslightbox="first-lightbox">
+                        {{ video_iframe(video.url) }}
+                    </a>
                 </div>
             {% endfor %}
         </div>
@@ -57,7 +59,11 @@
             </span>
             <span class="tags bg-light border rounded-3 p-1 mx-1" title="Catégorie">
                 <i class="fas fa-tag"></i>
-                {{ trick.categories|join(', ') }}
+                {% if trick.categories is empty %}
+                    Aucune catégorie
+                {% else %}
+                    {{ trick.categories|join(', ') }}
+                {% endif %}
             </span>
         </div>
 

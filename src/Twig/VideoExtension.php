@@ -30,6 +30,10 @@ class VideoExtension extends AbstractExtension
         $url = parse_url($videoPath);
         $videoId = null;
 
+        if (!isset($url['path'])) {
+            return '<span class="text-danger fw-bold">Le lien de la vidéo youtube est invalide</span>';
+        }
+
         if (isset($url['query'])) {
             $explode = explode('=', $url['query']);
             $videoId = $explode[1];
