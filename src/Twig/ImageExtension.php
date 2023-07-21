@@ -30,10 +30,10 @@ class ImageExtension extends AbstractExtension
      */
     public function getImageTrickPath(?string $imageName): string
     {
-        if ($imageName === null) {
+        if (null === $imageName) {
             return '';
         }
-        
+
         return '/'.$this->imageDirectory.'/'.$imageName;
     }
 

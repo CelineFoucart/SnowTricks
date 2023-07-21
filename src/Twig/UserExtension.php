@@ -18,14 +18,13 @@ class UserExtension extends AbstractExtension
     {
         $translations = [
             'ROLE_ADMIN' => 'Administrateur',
-            'ROLE_USER' => 'Utilisateur'
+            'ROLE_USER' => 'Utilisateur',
         ];
 
         $translated = [];
         foreach ($roles as $role) {
             $translated[] = $translations[$role];
         }
-        
 
         return join(', ', $translated);
     }
