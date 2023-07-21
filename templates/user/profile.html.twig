@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <div class="text-center">
                             {% if user.avatar %}
-                                <img src="{{ avatar_image(user.avatar) }}" class="rounded-circle" alt="avatar de l'utilisateur">
+                                <img src="{{ avatar_image(user.avatar) }}" class="rounded-circle img-fluid" alt="avatar de l'utilisateur">
                             {% else %}
                                 <span class="block-avatar"><i class="fas fa-user-circle"></i></span>
                             {% endif %}
