@@ -25,6 +25,8 @@
             {% endif %}
             <h1 class="title-trick px-5">{{ trick.name }}</h1>
         </header>
+
+        {% include "components/_flashes.html.twig" %}
         
         {% set totalImages = trick.images|length + trick.videos|length %}
         <div class="mt-4 gallery {{ totalImages > 5 ? 'public-gallery' : '' }}">
