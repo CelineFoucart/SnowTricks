@@ -21,7 +21,7 @@ git clone https://github.com/CelineFoucart/SnowTricks.git
 composer install
 ```
 
-Install the starting data:
+Install the starting data when the project is in dev environment:
 
 ```sh
 php bin/console d:m:m
