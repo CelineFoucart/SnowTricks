@@ -1,5 +1,7 @@
 # SnowTricks
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/41bf0bba0beb4c799f35faef98187265)](https://app.codacy.com/gh/CelineFoucart/SnowTricks?utm_source=github.com&utm_medium=referral&utm_content=CelineFoucart/SnowTricks&utm_campaign=Badge_Grade)
+
 SnowTricks is a community site developed for the Openclassrooms Program PHP/Symfony. It is developed with the Symfony Framework.
 
 ## Getting Started
