@@ -6,37 +6,46 @@
     {% set prototype = form_widget(collection.vars.prototype)|raw %}
     <div id="trick_{{ type }}" data-index="{{ collection|length }}" data-prototype="{{ prototype }}" class="edit-gallery-container">
         {% for key, element in collection %}
-            <div class="my-2 p-2 bg-light border rounded-3" id="{{ id_prefix }}Field{{ key }}">
-                {% if type == 'images' %}
-                    <img src="{{ trick_image(element.vars.value.filename) }}" alt="{{ element.vars.value.legend }}" class="img-fluid">
-                {% else %}
-                    {{ video_iframe(element.vars.value.url) }}
-                {% endif %}
-                
-                <div class="text-end mt-1">
-                    <a href="#" 
-                        class="text-decoration-none text-success mb-0 h5 me-2" 
-                        data-bs-toggle="modal" data-bs-target="#{{ id_prefix }}Modal{{ key }}">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <a href="#" class="text-danger mb-0 h5 remove-btn" data-target="#trickImageField{{ key }}">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </div>
-                <div class="modal fade" id="{{ id_prefix }}Modal{{ key }}" tabindex="-1" aria-labelledby="{{ id_prefix }}Modal{{ key }}Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="{{ id_prefix }}Modal{{ key }}Label">Modifier</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body fw-bold">
-                                {{ form_widget(element) }}
+            {% if element.vars.value.filename != null %}
+                <div class="my-2 p-2 bg-light border rounded-3" id="{{ id_prefix }}Field{{ key }}">
+                    {% if type == 'images' %}
+                        <img src="{{ trick_image(element.vars.value.filename) }}" alt="{{ element.vars.value.legend }}" class="img-fluid">
+                    {% else %}
+                        {{ video_iframe(element.vars.value.url) }}
+                    {% endif %}
+                    <div class="text-end mt-1">
+                        <a href="#" 
+                            class="text-decoration-none text-success mb-0 h5 me-2" 
+                            data-bs-toggle="modal" data-bs-target="#{{ id_prefix }}Modal{{ key }}">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="text-danger mb-0 h5 remove-btn" data-target="#trickImageField{{ key }}">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="modal fade" id="{{ id_prefix }}Modal{{ key }}" tabindex="-1" aria-labelledby="{{ id_prefix }}Modal{{ key }}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{ id_prefix }}Modal{{ key }}Label">Modifier</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body fw-bold">
+                                    {{ form_widget(element) }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
+
+        {% set rest = form_rest(collection) %}
+        {% if rest %}
+            <div class="my-2 p-2 bg-light border rounded-3">
+                {{ rest|raw }}
+            </div>
+        {% endif %}
     </div>
 </div>

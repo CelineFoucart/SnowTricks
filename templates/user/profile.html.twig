@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <th class="pb-3">Roles</th>
-                                    <td class="pb-3">{{ user.roles|join(', ', ' et ') }}</td>
+                                    <td class="pb-3">{{ user.roles|translate_roles }}</td>
                                 </tr>
                             </tbody>
                         </table>

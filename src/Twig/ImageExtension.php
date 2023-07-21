@@ -28,8 +28,12 @@ class ImageExtension extends AbstractExtension
      *
      * @return string the path generated
      */
-    public function getImageTrickPath(string $imageName): string
+    public function getImageTrickPath(?string $imageName): string
     {
+        if ($imageName === null) {
+            return '';
+        }
+        
         return '/'.$this->imageDirectory.'/'.$imageName;
     }
 
